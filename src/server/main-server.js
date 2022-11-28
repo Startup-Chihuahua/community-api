@@ -2,27 +2,25 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 
-let app = express();
-
 const users = require('../routes/users');
+const PORT = process.env.PORT;
 
-function main(port){
-    const p = port;
-    app = express();
-    middleWares();
-    assingRoutes();
-    app.listen(p, () => {
-        console.log('Server listening port: ' + p);
+function main(){
+    const app = express();
+    middleWares(app);
+    assingRoutes(app);
+    app.listen(PORT, () => {
+        console.log('Server listening port: ' + PORT);
     });
 };
 
-function middleWares(){
+function middleWares(app){
     app.use(express.json());
     app.use(morgan('dev'));
     app.use(cors());
 };
 
-function assingRoutes(){
+function assingRoutes(app){
     app.use('/users', users);
 };
 

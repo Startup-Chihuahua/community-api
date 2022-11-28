@@ -1,10 +1,8 @@
 const connect = require('../connection/dbconnection');
 
-const getUsers = async () => {
+async function getUsers() {
     const connection = await connect();
-    const result = await connection.query("SELECT * FROM usuarios");
-    // console.log(query);
-    return result;
+    return connection.query("SELECT * FROM usuarios");
 };
 
 const getUser = () => {
