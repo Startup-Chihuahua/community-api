@@ -2,7 +2,8 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 
-const users = require('../routes/users');
+const user = require('../routes/users');
+const company = require('../routes/company-routes');
 const PORT = process.env.PORT;
 
 function main(){
@@ -21,7 +22,8 @@ function middleWares(app){
 };
 
 function assingRoutes(app){
-    app.use('/users', users);
+    app.use('/user', user);
+    app.use('/company', company);
 };
 
 
