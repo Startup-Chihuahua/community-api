@@ -30,7 +30,7 @@ const createNewCompany = async (newCompany) => {
             newCompany.contact
         ]);
     } catch (error) {
-        throw { status: error?.status || 500, message: error?.message || error };
+        throw { status: 500, message: error };
     }
 };
 
@@ -42,7 +42,7 @@ const updateCompany = async (objectCompany, companyId) => {
             companyId
         ]);
     } catch (error) {
-        throw { status: error?.status || 500, message: error?.message || error };
+        throw { status: 500, message: error };
     }
 };
 

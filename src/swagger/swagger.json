@@ -14,7 +14,7 @@
           "x-swagger-router-controller": "middleware-name1",
           "operationId": "getUsers",
           "tags": ["User Data"],
-          "description": "Get all Users",
+          "summary": "Get all Users",
           "parameters": [],
           "responses": {}
         }
@@ -24,12 +24,73 @@
           "x-swagger-router-controller": "middleware-name1",
           "operationId": "getUser",
           "tags": ["User Data"],
-          "description": "Get one User",
+          "summary": "Get one User",
           "parameters": [{
             "name": "userId",
             "in": "path",
             "description": "ID of user that needs to be fetched",
             "type": "integer"
+          }],
+          "responses": {}
+        }
+      },
+      "/user/createUser":{
+        "post":{
+            "x-swagger-router-controller": "middleware-name1",
+            "operationId": "createUser",
+            "tags": ["User Data"],
+            "summary": "Add new user",
+            "parameters": [{
+                "in": "body",
+                "name": "body",
+                "description": "Create new User",
+                "required": true,
+                "schema": {
+                    "$ref": "#definitions/User"
+                }
+            }],
+            "responses": {}
+        }
+      },
+      "/user/updateUser/{userId}":{
+        "put":{
+          "x-swagger-router-controller": "middleware-name1",
+          "operationId": "updateUser",
+          "tags": ["User Data"],
+          "summary": "Update a user",
+          "parameters": [{
+            "name": "userId",
+            "in": "path",
+            "description": "User id to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update user object",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/User"
+            }
+          }],
+          "responses": {}
+        }
+      },
+      "/user/deleteUser/{userId}":{
+        "delete":{
+          "x-swagger-router-controller": "middleware-name1",
+          "operationId": "deleteUser",
+          "tags": ["User Data"],
+          "summary": "Delete a user",
+          "parameters": [{
+            "name": "userId",
+            "in": "path",
+            "description": "User id to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
           }],
           "responses": {}
         }
@@ -139,7 +200,7 @@
           "curp":{
             "type": "string"
           },
-          "telefono":{
+          "phone":{
             "type": "string"
           }
         },
