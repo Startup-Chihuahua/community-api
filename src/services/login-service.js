@@ -42,4 +42,3 @@ const createLog = async ({ mail, password }) => {
 module.exports = {
     createLog
 };
-
