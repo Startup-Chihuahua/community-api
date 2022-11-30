@@ -180,6 +180,24 @@
           }],
           "responses": {}
         }
+      },
+      "/login":{
+        "post":{
+          "x-swagger-router-controller": "middleware-name3",
+          "operationId": "login",
+          "tags": ["Login"],
+          "summary": "Log a user",
+          "parameters": [{
+            "in": "body",
+            "name": "body",
+            "description": "Login data",
+            "required": true,
+            "schema": {
+                "$ref": "#definitions/Login"
+            }
+          }],
+          "responses": {}
+        }
       }
     },
     "definitions": {
@@ -223,6 +241,19 @@
             "type": "string"
           },
           "contact": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "Company"
+        }
+      },
+      "Login": {
+        "properties": {
+          "mail": {
+            "type": "string"
+          },
+          "password": {
             "type": "string"
           }
         },
