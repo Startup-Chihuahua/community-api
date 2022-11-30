@@ -181,6 +181,92 @@
           "responses": {}
         }
       },
+      "/community/getCommunitys": {
+        "get":{
+            "x-swagger-router-controller": "middleware-name4",
+            "operationId": "getCommunitys",
+            "tags": ["Community Data"],
+            "summary": "Get all Communitys",
+            "parameters": [],
+            "responses": {}
+        }
+      },
+      "/community/getCommunity/{communityId}":{
+        "get":{
+            "x-swagger-router-controller": "middleware-name4",
+            "operationId": "getCommunity",
+            "tags": ["Community Data"],
+            "summary": "Get one Community",
+            "parameters": [{
+                "name": "communityId",
+                "in": "path",
+                "description": "ID of community",
+                "type": "integer"
+            }],
+            "responses": {}
+        }
+      },
+      "/community/createCommunity":{
+        "post":{
+            "x-swagger-router-controller": "middleware-name4",
+            "operationId": "createCommunity",
+            "tags": ["Community Data"],
+            "summary": "Add new community",
+            "parameters": [{
+                "in": "body",
+                "name": "body",
+                "description": "Create new Community",
+                "required": true,
+                "schema": {
+                    "$ref": "#definitions/Community"
+                }
+            }],
+            "responses": {}
+        }
+      },
+      "/community/updateCommunity/{communityId}":{
+        "put":{
+          "x-swagger-router-controller": "middleware-name4",
+          "operationId": "updateCommunity",
+          "tags": ["Community Data"],
+          "summary": "Update a community",
+          "parameters": [{
+            "name": "communityId",
+            "in": "path",
+            "description": "Community id to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update community object",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/Community"
+            }
+          }],
+          "responses": {}
+        }
+      },
+      "/community/deleteCommunity/{communityId}":{
+        "delete":{
+          "x-swagger-router-controller": "middleware-name4",
+          "operationId": "deleteCommunity",
+          "tags": ["Community Data"],
+          "summary": "Delete a company",
+          "parameters": [{
+            "name": "communityId",
+            "in": "path",
+            "description": "Community id to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }],
+          "responses": {}
+        }
+      },
       "/login":{
         "post":{
           "x-swagger-router-controller": "middleware-name3",
@@ -241,6 +327,19 @@
             "type": "string"
           },
           "contact": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "Company"
+        }
+      },
+      "Community": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           }
         },

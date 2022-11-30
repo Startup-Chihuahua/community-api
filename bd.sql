@@ -19,3 +19,9 @@ CREATE TABLE IF NOT EXISTS company(
     web VARCHAR(50),
     contact VARCHAR(50)
 );
+
+CREATE TABLE IF NOT EXISTS community(
+    community INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    description VARCHAR(200)
+);
