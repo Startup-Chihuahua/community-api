@@ -180,6 +180,16 @@
           }],
           "responses": {}
         }
+      },
+      "/event/getEvents": {
+        "get": {
+          "x-swagger-router-controller": "middleware-name1",
+          "operationId": "getEvents",
+          "tags": ["Event Data"],
+          "summary": "Get all Events",
+          "parameters": [],
+          "responses": {}
+        }
       }
     },
     "definitions": {
@@ -223,6 +233,31 @@
             "type": "string"
           },
           "contact": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "Company"
+        }
+      },
+      "Event": {
+        "properties": {
+          "idCompany": {
+            "type": "int"
+          },
+          "capacity": {
+            "type": "int"
+          },
+          "cost": {
+            "type": "decimal"
+          },
+          "modality": {
+            "type": "string"
+          },
+          "dateEvent": {
+            "type": "date"
+          },
+          "location": {
             "type": "string"
           }
         },

@@ -19,3 +19,13 @@ CREATE TABLE IF NOT EXISTS company(
     web VARCHAR(50),
     contact VARCHAR(50)
 );
+
+CREATE TABLE IF NOT EXISTS Event(
+    IdEvent INT PRIMARY KEY AUTO_INCREMENT,
+    idCompany INT,
+    capacity VARCHAR(50),
+    cost DECIMAL,
+    modality VARCHAR(50),
+    dateEvent DATETIME,
+    location VARCHAR(50)
+);
