@@ -1,14 +1,28 @@
 const communityService = require('../services/community-service');
+const joi = require('joi');
+
+const community = joi.object({
+    name: joi.string()
+        .alphanum()
+        .min(3)
+        .max(50)
+        .required(),
+    description: joi.string()
+        .alphanum()
+        .min(3)
+        .max(200)
+        .required(),
+});
 
 const getComunnitys = async (req, res) => {
     try {
         const allCommunitys = await communityService.getComunnitys();
-        res.send({
+        res.status(200).send({
             status: "OK",
             data: allCommunitys
         });
     } catch (error) {
-        res.send({
+        res.status(404).send({
             status: "FAILED",
             data: { error: error?.message || error }
         });
@@ -18,19 +32,19 @@ const getComunnitys = async (req, res) => {
 const getCommunity = async (req, res) => {
     const { params: { communityId } } = req;
     if(!communityId){
-        res.send({
+        res.status(404).send({
             status: "FAILED",
             data: { error: "Parametrer 'communityId' can not be empty" }
         });
     }
     try {
         const communiity = await communityService.getOneCommunity(communityId);
-        res.send({
+        res.status(200).send({
             status: "OK",
             data: communiity
         });
     } catch (error) {
-        res.send({
+        res.status(400).send({
             status: "FAILED",
             data: { error: error?.message || error }
         });
@@ -38,61 +52,45 @@ const getCommunity = async (req, res) => {
 };
 
 const createCommunity =async (req, res) => {
-    const { body } = req;
-    if(
-        !body.name ||
-        !body.description
-    ){
-        res.send({
+    const result = community.validate(req.body);
+    if(result.error){
+        res.status(400).send({
             status: "FAILED",
-            data: {
-                error: "Missing keys"
-            }
+            data: { error: result.error.details }
         });
-    }
-    const newCommunity = {
-        name: body.name,
-        description: body.description
-    };
-    try {
-        await communityService.createNewCommunity(newCommunity);
-        res.send({
-            status: "OK",
-            data: newCommunity
-        });
-    } catch (error) {
-        res.send({
-            status: "FAILED",
-            data: { error: error?.message || error }
-        });
+    }else{
+        try {
+            await communityService.createNewCommunity(result.value);
+            res.status(201).send({
+                status: "OK",
+                data: result.value
+            });
+        } catch (error) {
+            res.status(404).send({
+                status: "FAILED",
+                data: { error: error?.message || error }
+            });
+        }
     }
 };
 
 const updateCommunity = async (req, res) => {
     const { body, params: { communityId } } = req;
-    if(
-        !body.name ||
-        !body.description
-    ){
-        res.send({
+    const result = community.validate(body);
+    if(result.error){
+        res.status(400).send({
             status: "FAILED",
-            data: {
-                error: "Missing keys"
-            }
+            data: { error: result.error.details }
         });
     } else {
-        const objectCompany = {
-            name: body.name,
-            description: body.description
-        };
         try {
-            await communityService.updateCommunity(objectCompany, communityId);
-            res.send({
+            await communityService.updateCommunity(result.value, communityId);
+            res.status(202).send({
                 status: "OK",
-                data: objectCompany
+                data: result.value
             });
         } catch (error) {
-            res.send({
+            res.status(404).send({
                 status: "FAILED",
                 data: { error: error?.message || error }
             });
@@ -103,16 +101,16 @@ const updateCommunity = async (req, res) => {
 const deleteCommunity = async (req, res) => {
     const { params: { communityId } } = req;
     if(!communityId){
-        res.send({
+        res.status(400).send({
             status: "FAILED",
             data: { error: "Parameter ':communityId' can not be empty" }
         });
     }
     try {
         await communityService.deleteCommunity(communityId);
-        res.send({ status: "OK", message: 'Delete community success' });
+        res.status(202).send({ status: "OK", message: 'Delete community success' });
     } catch (error) {
-        res.send({
+        res.status(404).send({
             status: "FAILED",
             data: { error: error?.message || error }
         });

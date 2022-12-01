@@ -1,14 +1,42 @@
 const userService = require("../services/user-service");
+const joi = require('joi');
+
+const user = joi.object({
+    name: joi.string()
+        .alphanum()
+        .min(3)
+        .max(50)
+        .required(),
+    lastName: joi.string()
+        .alphanum()
+        .min(3)
+        .max(50)
+        .required(),
+    mail: joi.string()
+        .email()
+        .required(),
+    password: joi.string()
+        .pattern(new RegExp('^[a-zA-Z0-9]{8,30}$'))
+        .required(),
+    curp: joi.string()
+        .uppercase()
+        .max(18)
+        .required(),
+    phone: joi.string()
+        .alphanum()
+        .max(20)
+        .required()
+});
 
 const getUsers = async (req, res) => {
     try {
         const allUsers = await userService.getUsers();
-        res.send({
+        res.status(200).send({
             status: "OK",
             data: allUsers
         });
     } catch (error) {
-        res.send({
+        res.status(404).send({
             status: "FAILED",
             data: { error: error?.message || error }
         });
@@ -18,16 +46,16 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
     const { params: {userId} } = req;
     if(!userId){
-        res.send({
+        res.status(400).send({
             status: "FAILED",
             data: { error: "Parameter ':userId' can not be empty" }
         });
     }
     try {
         const user = await userService.getUser(userId);
-        res.send({ status: "OK", data: user });
+        res.status(200).send({ status: "OK", data: user });
     } catch (error) {
-        res.send({
+        res.status(404).send({
             status: "FAILED",
             data: { error: error?.message || error }
         });
@@ -35,88 +63,60 @@ const getUser = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-    const { body } = req;
-    if(
-        !body.name ||
-        !body.lastName ||
-        !body.mail ||
-        !body.password ||
-        !body.curp ||
-        !body.phone
-    ){
-        res.send({
+    const result = user.validate(req.body);
+    if(result.error){
+        res.status(400).send({
             status: "FAILED",
-            data: { error: "Missing keys" }
+            data: { error: result.error.details }
         });
-        return;
-    }
-    const newUser = {
-        name: body.name,
-        lastName: body.lastName,
-        mail: body.mail,
-        password: body.password,
-        curp: body.curp,
-        phone: body.phone
-    };
-    try {
-        await userService.createNewUser(newUser);
-        res.send({ status: "OK", data: newUser });
-    } catch (error) {
-        res.send({
-            status: "FAILED",
-            data: { error: error?.message || error }
-        });
+    }else{
+        try {
+            await userService.createNewUser(result.value);
+            res.status(201).send({ status: "OK", data: result.value });
+        } catch (error) {
+            res.status(404).send({
+                status: "FAILED",
+                data: { error: error?.message || error }
+            });
+        }
     }
 };
 
 const updateUser = async (req, res) => {
     const { body, params: {userId} } = req;
-    if(
-        !body.name ||
-        !body.lastName ||
-        !body.mail ||
-        !body.password ||
-        !body.curp ||
-        !body.phone
-    ){
-        res.send({
+    const result = user.validate(body);
+
+    if(result.error){
+        res.status(400).send({
             status: "FAILED",
-            data: { error: "Missing keys" }
+            data: { error: result.error.details }
         });
-        return;
-    }
-    const objectUser = {
-        name: body.name,
-        lastName: body.lastName,
-        mail: body.mail,
-        password: body.password,
-        curp: body.curp,
-        phone: body.phone
-    };
-    try {
-        await userService.updateUser(objectUser, userId);
-        res.send({ status: "OK", data: objectUser });
-    } catch (error) {
-        res.send({
-            status: "FAILED",
-            data: { error: error?.message || error }
-        });
+    } else{
+        try {
+            await userService.updateUser(result.value, userId);
+            res.status(202).send({ status: "OK", data: result.value });
+        } catch (error) {
+            res.status(404).send({
+                status: "FAILED",
+                data: { error: error?.message || error }
+            });
+        }
     }
 };
 
 const deleteUser = async (req, res) => {
     const { params: {userId} } = req;
     if(!userId){
-        res.send({
+        res.status(400).send({
             status: "FAILED",
             data: { error: "Parameter ':userId' can not be empty" }
         });
     }
     try {
         await userService.deleteUser(userId);
-        res.send({ status: "OK", message: "Delete user success" });
+        res.status(202).send({ status: "OK", message: "Delete user success" });
     } catch (error) {
-        res.send({
+        res.status(404).send({
             status: "FAILED",
             data: { error: error?.message || error }
         });

@@ -1,15 +1,43 @@
 const companyService = require('../services/company-service');
+const joi = require('joi');
+
+const company = joi.object({
+    name: joi.string()
+        .alphanum()
+        .min(3)
+        .max(50)
+        .required(),
+    location: joi.string()
+        .alphanum()
+        .min(3)
+        .max(50)
+        .required(),
+    description: joi.string()
+        .alphanum()
+        .min(3)
+        .max(50)
+        .required(),
+    web: joi.string()
+        .alphanum()
+        .min(3)
+        .max(50)
+        .required(),
+    contact: joi.string()
+        .alphanum()
+        .min(3)
+        .max(50)
+        .required(),
+});
 
 const getCompanys = async (req, res) => {
     try {
         const allCompanys = await companyService.getCompanys();
-        res.send({
+        res.status(200).send({
             status: 'OK',
             data: allCompanys
         });
     } catch (error) {
-        res
-            .send({
+        res.status(404).send({
                 status: 'FAILED',
                 data: {error: error?.message || error}
             });
@@ -19,18 +47,16 @@ const getCompanys = async (req, res) => {
 const getCompany = async (req, res) => {
     const { params: { companyId } } = req;
     if(!companyId){
-        res
-            .send({
+        res.status(400).send({
                 status: "FAILED",
                 data: { error: "Parameter ':companyId' can not be empty" }
             });
     }
     try {
         const company = await companyService.getOneCompany(companyId);
-        res.send({ status: "OK", data: company });
+        res.status(200).send({ status: "OK", data: company });
     } catch (error) {
-        res
-            .send({
+        res.status(404).send({
                 status: "FAILED",
                 data: { error: error?.message || error }
             });
@@ -38,91 +64,62 @@ const getCompany = async (req, res) => {
 };
 
 const createCompany = async (req, res) => {
-    const { body } = req;
-    if(
-        !body.name ||
-        !body.location ||
-        !body.description ||
-        !body.web ||
-        !body.contact
-    ){
-        res
-            .send({
-                status: "FAILED",
-                data: {
-                    error: "Missing keys"
-                }
+    const result = company.validate(req.body);
+    if(result.error){
+        res.status(400).send({
+            status: "FAILED",
+            data: { error: result.error.details }
+        });
+    }else{
+        try {
+            await companyService.createNewCompany(result.value);
+            res.status(201).send({ status: "OK", data: result.value });
+        } catch (error) {
+            res.status(404).send({ 
+                status: "FAILED", 
+                data: { error: error?.message || error } 
             });
-        return;
-    }
-    const newCompany = {
-        name: body.name,
-        location: body.location,
-        description: body.description,
-        web: body.web,
-        contact: body.contact
-    };
-    try {
-        await companyService.createNewCompany(newCompany);
-        res.send({ status: "OK", data: newCompany });
-    } catch (error) {
-        res
-            .send({ status: "FAILED", data: { error: error?.message || error } });
+        }
     }
 };
 
 const updateCompany = async (req, res) => {
     const { body, params: {companyId} } = req;
-    if(
-        !body.name ||
-        !body.location ||
-        !body.description ||
-        !body.web ||
-        !body.contact
-    ){
-        res
-            .send({
-                status: "FAILED",
-                data: {
-                    error: "Missing keys"
-                }
+    const result = company.validate(body);
+    if(result.error){
+        res.status(400).send({
+            status: "FAILED",
+            data: { error: result.error.details }
+        });
+    }else{
+        try {
+            await companyService.updateCompany(result.value, companyId);
+            res.status(202).send({ status: "OK", data: result.value });
+        } catch (error) {
+            res.status(404).send({ 
+                status: "FAILED", 
+                data: { error: error?.message || error } 
             });
-        return;
-    }
-    const objectCompany = {
-        name: body.name,
-        location: body.location,
-        description: body.description,
-        web: body.web,
-        contact: body.contact
-    };
-    try {
-        await companyService.updateCompany(objectCompany, companyId);
-        res.send({ status: "OK", data: objectCompany });
-    } catch (error) {
-        res
-            .send({ status: "FAILED", data: { error: error?.message || error } });
+        }
     }
 };
 
 const deleteCompany = async (req, res) => {
     const { params: { companyId } } = req;
     if(!companyId){
-        res
-            .send({
-                status: "FAILED",
-                data: { error: "Parameter ':companyId' can not be empty" }
-            });
+        res.status(400).send({
+            status: "FAILED",
+            data: { error: "Parameter ':companyId' can not be empty" }
+        });
     }
     try {
         await companyService.deleteCompany(companyId);
-        res.send({ status: "OK", message: 'Delete company success' });
+        res.status(202).send({ status: "OK", message: 'Delete company success' });
     } catch (error) {
-        res
-            .send({
-                status: "FAILED",
-                data: { error: error?.message || error }
-            });
+        res.status(404).send({
+            status: "FAILED",
+            data: { error: error?.message || error }
+        });
     }
 };
 
