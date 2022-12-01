@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS user(
     name VARCHAR(50),
     lastName VARCHAR(50),
     mail VARCHAR(50),
-    password VARCHAR(50),
+    password VARCHAR(100),
     curp VARCHAR(20),
     phone VARCHAR(10)
 );
