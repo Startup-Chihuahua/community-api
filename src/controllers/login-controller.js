@@ -1,32 +1,36 @@
 const loginService = require('../services/login-service');
+const joi = require('joi');
+
+const login = joi.object({
+    mail: joi.string()
+        .email()
+        .required(),
+    password: joi.string()
+        .pattern(new RegExp('^[a-zA-Z0-9]{0,30}$'))
+        .required()
+});
 
 const getData = async (req, res) => {
     const { body } = req;
-    if(
-        !body.mail ||
-        !body.password
-    ){
-        res.send({
+    const result = login.validate(body);
+    if(result.error){
+        res.status(400).send({
             status: "FAILED",
-            data: { error: "Missing keys" }
+            data: { error: result.error.details }
         });
-        return;
-    }
-    const objectLog = {
-        mail: body.mail,
-        password: body.password
-    };
-    try {
-        const data = await loginService.createLog(objectLog);
-        res.send({
-            status: "OK",
-            data: data
-        });
-    } catch (error) {
-        res.send({
-            status: "FAILED",
-            data: { error: error?.message || error }
-        });
+    }else{
+        try {
+            const data = await loginService.createLog(result.value);
+            res.status(200).send({
+                status: "OK",
+                data: data
+            });
+        } catch (error) {
+            res.status(404).send({
+                status: "FAILED",
+                data: { error: error?.message || error }
+            });
+        }
     }
 };
 
