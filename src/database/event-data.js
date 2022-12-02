@@ -9,7 +9,16 @@ async function getEvents() {
     }
 };
 
+const getEvent = async (eventId) => {
+    try {
+        const connection = await connect();
+        return connection.query("SELECT * FROM Event WHERE event = ?", [eventId]);
+    } catch (error) {
+        throw { status: 500, message: error };
+    }
+};
+
 module.exports = {
-    getEvents
-    
+    getEvents,
+    getEvent
 };

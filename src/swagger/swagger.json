@@ -190,6 +190,21 @@
           "parameters": [],
           "responses": {}
         }
+      },
+      "/event/getEvent/{eventId}": {
+        "get": {
+          "x-swagger-router-controller": "middleware-name1",
+          "operationId": "getEvent",
+          "tags": ["Event Data"],
+          "summary": "Get one Event",
+          "parameters": [{
+            "name": "eventId",
+            "in": "path",
+            "description": "ID of user that needs to be fetched",
+            "type": "integer"
+          }],
+          "responses": {}
+        }
       }
     },
     "definitions": {

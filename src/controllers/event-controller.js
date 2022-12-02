@@ -15,6 +15,26 @@ const getEvents = async (req, res) => {
     }
 };
 
+const getEvent = async (req, res) => {
+    const { params: {eventId} } = req;
+    if(!eventId){
+        res.send({
+            status: "FAILED",
+            data: { error: "Parameter ':eventId' can not be empty" }
+        });
+    }
+    try {
+        const event = await eventService.getEvent(eventId);
+        res.send({ status: "OK", data: event });
+    } catch (error) {
+        res.send({
+            status: "FAILED",
+            data: { error: error?.message || error }
+        });
+    }
+};
+
 module.exports = { 
-    getEvents
+    getEvents,
+    getEvent
 };
