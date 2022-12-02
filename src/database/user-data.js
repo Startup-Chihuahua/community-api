@@ -61,10 +61,20 @@ const deleteUser = async (userId) => {
     }
 };
 
+const getMail = async (mail) => {
+    try {
+        const connection = await connect();
+        return connection.query("SELECT * FROM user WHERE mail = ?", [mail]);
+    } catch (error) {
+        throw { status: 500, message: error };
+    }
+};
+
 module.exports = {
     getUsers,
     getUser,
     createNewUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getMail
 };

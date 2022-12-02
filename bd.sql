@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS user(
     name VARCHAR(50),
     lastName VARCHAR(50),
     mail VARCHAR(50),
-    password VARCHAR(50),
+    password VARCHAR(100),
     curp VARCHAR(20),
     phone VARCHAR(10)
 );
@@ -21,11 +21,17 @@ CREATE TABLE IF NOT EXISTS company(
 );
 
 CREATE TABLE IF NOT EXISTS Event(
-    IdEvent INT PRIMARY KEY AUTO_INCREMENT,
-    idCompany INT,
+    event INT PRIMARY KEY AUTO_INCREMENT,
+    company INT,
     capacity VARCHAR(50),
     cost DECIMAL,
     modality VARCHAR(50),
     dateEvent DATETIME,
     location VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS community(
+    community INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    description VARCHAR(200)
 );
