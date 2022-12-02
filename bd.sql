@@ -20,6 +20,16 @@ CREATE TABLE IF NOT EXISTS company(
     contact VARCHAR(50)
 );
 
+CREATE TABLE IF NOT EXISTS Event(
+    event INT PRIMARY KEY AUTO_INCREMENT,
+    company INT,
+    capacity VARCHAR(50),
+    cost DECIMAL,
+    modality VARCHAR(50),
+    dateEvent DATETIME,
+    location VARCHAR(50)
+);
+
 CREATE TABLE IF NOT EXISTS community(
     community INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50),

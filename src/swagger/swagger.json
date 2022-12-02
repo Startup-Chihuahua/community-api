@@ -181,6 +181,31 @@
           "responses": {}
         }
       },
+      "/event/getEvents": {
+        "get": {
+          "x-swagger-router-controller": "middleware-name1",
+          "operationId": "getEvents",
+          "tags": ["Event Data"],
+          "summary": "Get all Events",
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/event/getEvent/{eventId}": {
+        "get": {
+          "x-swagger-router-controller": "middleware-name1",
+          "operationId": "getEvent",
+          "tags": ["Event Data"],
+          "summary": "Get one Event",
+          "parameters": [{
+            "name": "eventId",
+            "in": "path",
+            "description": "ID of user that needs to be fetched",
+            "type": "integer"
+            }],
+            "responses": {}
+          }
+      },
       "/community/getCommunitys": {
         "get":{
             "x-swagger-router-controller": "middleware-name4",
@@ -281,10 +306,10 @@
             "schema": {
                 "$ref": "#definitions/Login"
             }
-          }],
-          "responses": {}
+        }],
+        "responses": {}  
         }
-      }
+    }
     },
     "definitions": {
       "User": {
@@ -334,6 +359,31 @@
           "name": "Company"
         }
       },
+      "Event": {
+        "properties": {
+          "idCompany": {
+            "type": "int"
+          },
+          "capacity": {
+            "type": "int"
+          },
+          "cost": {
+            "type": "decimal"
+          },
+          "modality": {
+            "type": "string"
+          },
+          "dateEvent": {
+            "type": "date"
+          },
+          "location": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "Company"
+        }
+      },
       "Community": {
         "properties": {
           "name": {
@@ -361,4 +411,4 @@
         }
       }
     }
- }
+}
