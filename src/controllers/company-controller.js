@@ -3,27 +3,22 @@ const joi = require('joi');
 
 const company = joi.object({
     name: joi.string()
-        .alphanum()
         .min(3)
         .max(50)
         .required(),
     location: joi.string()
-        .alphanum()
         .min(3)
         .max(50)
         .required(),
     description: joi.string()
-        .alphanum()
         .min(3)
         .max(50)
         .required(),
     web: joi.string()
-        .alphanum()
         .min(3)
         .max(50)
         .required(),
     contact: joi.string()
-        .alphanum()
         .min(3)
         .max(50)
         .required(),

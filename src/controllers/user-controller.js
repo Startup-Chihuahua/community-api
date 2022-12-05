@@ -3,12 +3,10 @@ const joi = require('joi');
 
 const user = joi.object({
     name: joi.string()
-        .alphanum()
         .min(3)
         .max(50)
         .required(),
     lastName: joi.string()
-        .alphanum()
         .min(3)
         .max(50)
         .required(),

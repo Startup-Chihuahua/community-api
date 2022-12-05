@@ -3,12 +3,10 @@ const joi = require('joi');
 
 const community = joi.object({
     name: joi.string()
-        .alphanum()
         .min(3)
         .max(50)
         .required(),
     description: joi.string()
-        .alphanum()
         .min(3)
         .max(200)
         .required(),
