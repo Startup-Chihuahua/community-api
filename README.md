@@ -8,4 +8,5 @@ HOST =
 USER = 
 PASSWORD =
 DATABASE = 
+SECRET_KEY = 
 ```

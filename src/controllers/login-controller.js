@@ -21,7 +21,7 @@ const getData = async (req, res) => {
     }else{
         try {
             const data = await loginService.createLog(result.value);
-            res.status(200).send({
+            res.header('auth-token', data.accessToken).status(200).send({
                 status: "OK",
                 data: data
             });

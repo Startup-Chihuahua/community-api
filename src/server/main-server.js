@@ -3,13 +3,14 @@ const morgan = require("morgan");
 const cors = require("cors");
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger/swagger.json');
+const PORT = process.env.PORT;
 
 const user = require('../routes/user-routes');
 const company = require('../routes/company-routes');
 const event = require('../routes/event-routes');
 const community = require('../routes/community-routes');
 const login = require('../routes/login-routes');
-const PORT = process.env.PORT;
+const verifyToken = require('../routes/validate-token');
 
 function main(){
     const app = express();
@@ -28,10 +29,10 @@ function middleWares(app){
 
 function assingRoutes(app){
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-    app.use('/user', user);
-    app.use('/company', company);
-    app.use('/event', event);
-    app.use('/community', community);
+    app.use('/user', verifyToken, user);
+    app.use('/company', verifyToken, company);
+    app.use('/event', verifyToken, event);
+    app.use('/community', verifyToken, community);
     app.use('/login', login);
 };
 

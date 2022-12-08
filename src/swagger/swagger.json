@@ -15,7 +15,13 @@
           "operationId": "getUsers",
           "tags": ["User Data"],
           "summary": "Get all Users",
-          "parameters": [],
+          "parameters": [{
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }],
           "responses": {}
         }
       },
@@ -30,6 +36,13 @@
             "in": "path",
             "description": "ID of user that needs to be fetched",
             "type": "integer"
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
           }],
           "responses": {}
         }
@@ -48,6 +61,13 @@
                 "schema": {
                     "$ref": "#definitions/User"
                 }
+            },
+            {
+              "name": "auth-token",
+              "in": "header",
+              "description": "Token",
+              "required": true,
+              "type": "string"
             }],
             "responses": {}
         }
@@ -74,6 +94,13 @@
             "schema": {
               "$ref": "#definitions/User"
             }
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
           }],
           "responses": {}
         }
@@ -91,6 +118,13 @@
             "required": true,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
           }],
           "responses": {}
         }
@@ -101,7 +135,13 @@
             "operationId": "getCompanys",
             "tags": ["Company Data"],
             "summary": "Get all Companys",
-            "parameters": [],
+            "parameters": [{
+              "name": "auth-token",
+              "in": "header",
+              "description": "Token",
+              "required": true,
+              "type": "string"
+            }],
             "responses": {}
         }
       },
@@ -116,6 +156,13 @@
                 "in": "path",
                 "description": "ID of company",
                 "type": "integer"
+            },
+            {
+              "name": "auth-token",
+              "in": "header",
+              "description": "Token",
+              "required": true,
+              "type": "string"
             }],
             "responses": {}
         }
@@ -134,6 +181,13 @@
                 "schema": {
                     "$ref": "#definitions/Company"
                 }
+            },
+            {
+              "name": "auth-token",
+              "in": "header",
+              "description": "Token",
+              "required": true,
+              "type": "string"
             }],
             "responses": {}
         }
@@ -160,6 +214,13 @@
             "schema": {
               "$ref": "#definitions/Company"
             }
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
           }],
           "responses": {}
         }
@@ -177,6 +238,13 @@
             "required": true,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
           }],
           "responses": {}
         }
@@ -187,7 +255,13 @@
           "operationId": "getEvents",
           "tags": ["Event Data"],
           "summary": "Get all Events",
-          "parameters": [],
+          "parameters": [{
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }],
           "responses": {}
         }
       },
@@ -202,6 +276,13 @@
             "in": "path",
             "description": "ID of user that needs to be fetched",
             "type": "integer"
+            },
+            {
+              "name": "auth-token",
+              "in": "header",
+              "description": "Token",
+              "required": true,
+              "type": "string"
             }],
             "responses": {}
           }
@@ -212,7 +293,13 @@
             "operationId": "getCommunitys",
             "tags": ["Community Data"],
             "summary": "Get all Communitys",
-            "parameters": [],
+            "parameters": [{
+              "name": "auth-token",
+              "in": "header",
+              "description": "Token",
+              "required": true,
+              "type": "string"
+            }],
             "responses": {}
         }
       },
@@ -227,6 +314,13 @@
                 "in": "path",
                 "description": "ID of community",
                 "type": "integer"
+            },
+            {
+              "name": "auth-token",
+              "in": "header",
+              "description": "Token",
+              "required": true,
+              "type": "string"
             }],
             "responses": {}
         }
@@ -245,6 +339,13 @@
                 "schema": {
                     "$ref": "#definitions/Community"
                 }
+            },
+            {
+              "name": "auth-token",
+              "in": "header",
+              "description": "Token",
+              "required": true,
+              "type": "string"
             }],
             "responses": {}
         }
@@ -271,6 +372,13 @@
             "schema": {
               "$ref": "#definitions/Community"
             }
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
           }],
           "responses": {}
         }
@@ -288,6 +396,13 @@
             "required": true,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
           }],
           "responses": {}
         }
