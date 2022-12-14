@@ -6,7 +6,6 @@ const login = joi.object({
         .email()
         .required(),
     password: joi.string()
-        .pattern(new RegExp('^[a-zA-Z0-9]{0,30}$'))
         .required()
 });
 

@@ -1,5 +1,6 @@
 const connect = require('../connection/dbconnection');
 const bcrypt = require('bcryptjs');
+const { password, user } = require('../connection/config');
 
 async function getUsers() {
     try {
@@ -70,11 +71,24 @@ const getMail = async (mail) => {
     }
 };
 
+const setPassword = async (userid, password) => {
+    try {
+        const connection = await connect();
+        return connection.query("UPDATE user SET password = ? WHERE user = ?", [
+            password,
+            userid
+        ]);
+    } catch (error) {
+        throw { status: 500, message: error };
+    }
+};
+
 module.exports = {
     getUsers,
     getUser,
     createNewUser,
     updateUser,
     deleteUser,
-    getMail
+    getMail,
+    setPassword
 };

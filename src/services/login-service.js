@@ -13,8 +13,9 @@ const createLog = async ({ mail, password }) => {
             };
         } else {
             const userCreden = user[0][0];
-            const validatePass = bcrypt.compareSync(password, userCreden.password);
-            if(validatePass){
+            
+            // const validatePass = bcrypt.compareSync(password, userCreden.password);
+            if(password === userCreden.password){
                 const accessToken = jwt.sign({ id: userCreden.user }, SECRET_KEY,  {expiresIn: '2h'});
                 const dataUser = {
                     user: userCreden.user,

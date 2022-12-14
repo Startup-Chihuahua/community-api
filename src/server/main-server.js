@@ -10,6 +10,9 @@ const company = require('../routes/company-routes');
 const event = require('../routes/event-routes');
 const community = require('../routes/community-routes');
 const login = require('../routes/login-routes');
+
+const gen = require('../routes/generatePass-routes'); 
+
 const verifyToken = require('../routes/validate-token');
 
 function main(){
@@ -29,11 +32,12 @@ function middleWares(app){
 
 function assingRoutes(app){
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-    app.use('/user', verifyToken, user);
+    app.use('/user', user);
     app.use('/company', verifyToken, company);
     app.use('/event', verifyToken, event);
     app.use('/community', verifyToken, community);
     app.use('/login', login);
+    app.use('/pass', gen);
 };
 
 
