@@ -1,4 +1,4 @@
-const eventData = require('../database/event-data');
+const eventData = require('../database/event-repository');
 
 const getEvents = async () => {
     try {

@@ -1,9 +1,8 @@
-const userData = require('../database/user-data');
+const userRepository = require('../database/user-repository');
 
 const getUsers = async () => {
     try {
-        const [allUsers] = await userData.getUsers();
-        return allUsers;
+        return allUsers = await userRepository.getUsers();
     } catch (error) {
         throw error;
     }
@@ -11,7 +10,7 @@ const getUsers = async () => {
 
 const getUser = async (userId) => {
     try {
-        const [user] = await userData.getUser(userId);
+        const [user] = await userRepository.getUser(userId);
         if(user.length === 0){
             throw {
                 status: 400,
@@ -26,7 +25,7 @@ const getUser = async (userId) => {
 
 const createNewUser = async (newUser) => {
     try {
-        return await userData.createNewUser(newUser);
+        return await userRepository.createNewUser(newUser);
     } catch (error) {
         throw error;
     }
@@ -34,14 +33,14 @@ const createNewUser = async (newUser) => {
 
 const updateUser = async (objectUser, userId) => {
     try {
-        const [user] = await userData.getUser(userId);
+        const user = await userRepository.getUser(userId);
         if(user.length === 0){
             throw {
                 status: 400,
                 message: `ID not found: ${userId}`
             };
         }else{
-            return await userData.updateUser(objectUser, userId);
+            return await userRepository.updateUser(objectUser, userId);
         }
     } catch (error) {
         throw error;
@@ -50,8 +49,8 @@ const updateUser = async (objectUser, userId) => {
 
 const deleteUser = async (userId) => {
     try {
-        const data = await userData.deleteUser(userId);
-        if(data[0].affectedRows === 0){
+        const data = await userRepository.deleteUser(userId);
+        if(data.affectedRows === 0){
             throw {
                 status: 400,
                 message: `ID not found: ${userId}`

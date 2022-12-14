@@ -1,9 +1,8 @@
-const communityData = require('../database/community-data');
+const communityData = require('../database/community-respository');
 
 const getComunnitys = async () => {
     try {
-        const [allCommunitys] = await communityData.getComunnitys();
-        return allCommunitys;
+            return allCommunitys = await communityData.getComunnitys();
     } catch (error) {
         throw error;
     }
@@ -34,7 +33,7 @@ const createNewCommunity = async (newCommunity) => {
 
 const updateCommunity = async (objectCommunity, communityId) => {
     try {
-        const [community] = await communityData.getOneCommunity(communityId);
+        const community = await communityData.getOneCommunity(communityId);
         if(community.length === 0){
             throw {
                 status: 400,
@@ -51,7 +50,7 @@ const updateCommunity = async (objectCommunity, communityId) => {
 const deleteCommunity = async (communityId) => {
     try {
         const data = await communityData.deleteCommunity(communityId);
-        if(data[0].affectedRows === 0){
+        if(data.affectedRows === 0){
             throw {
                 status: 400,
                 message: `ID not found: ${communityId}`

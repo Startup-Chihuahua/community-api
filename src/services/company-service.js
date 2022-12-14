@@ -1,9 +1,8 @@
-const companyData = require('../database/company-data');
+const companyData = require('../database/company-repository');
 
 const getCompanys = async () => {
     try {
-        const [allCompanys] = await companyData.getCompanys();
-        return allCompanys;
+        return allCompanys = await companyData.getCompanys();
     } catch (error) {
         throw error;
     }
@@ -35,7 +34,7 @@ const createNewCompany = async (newCompany) => {
 
 const updateCompany = async (objectCompany, companyId) => {
     try {
-        const [company] = await companyData.getOneCompany(companyId);
+        const company = await companyData.getOneCompany(companyId);
         if(company.length === 0){
             throw {
                 status: 400,
@@ -52,7 +51,7 @@ const updateCompany = async (objectCompany, companyId) => {
 const deleteCompany = async (companyId) => {
     try {
         const data = await companyData.deleteCompany(companyId);
-        if(data[0].affectedRows === 0){
+        if(data.affectedRows === 0){
             throw {
                 status: 400,
                 message: `ID not found: ${companyId}`
