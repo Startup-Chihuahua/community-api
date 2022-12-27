@@ -1,23 +1,16 @@
-const userRepository = require('../database/user-repository');
+const userRepository = require('../repositories/user-repository');
 
-const getUsers = async () => {
+const findUsers = async () => {
     try {
-        return allUsers = await userRepository.getUsers();
+        return await userRepository.findUsers();
     } catch (error) {
         throw error;
     }
 };
 
-const getUser = async (userId) => {
+const findOneUser = async (userId) => {
     try {
-        const [user] = await userRepository.getUser(userId);
-        if(user.length === 0){
-            throw {
-                status: 400,
-                message: `ID not found: ${userId}`
-            };
-        }
-        return user;
+        return await userRepository.findOneUser(userId);
     } catch (error) {
         throw error;
     }
@@ -33,15 +26,7 @@ const createNewUser = async (newUser) => {
 
 const updateUser = async (objectUser, userId) => {
     try {
-        const user = await userRepository.getUser(userId);
-        if(user.length === 0){
-            throw {
-                status: 400,
-                message: `ID not found: ${userId}`
-            };
-        }else{
-            return await userRepository.updateUser(objectUser, userId);
-        }
+        return await userRepository.updateUser(objectUser, userId);
     } catch (error) {
         throw error;
     }
@@ -49,22 +34,15 @@ const updateUser = async (objectUser, userId) => {
 
 const deleteUser = async (userId) => {
     try {
-        const data = await userRepository.deleteUser(userId);
-        if(data.affectedRows === 0){
-            throw {
-                status: 400,
-                message: `ID not found: ${userId}`
-            };
-        }
-        return data;
+        await userRepository.deleteUser(userId);
     } catch (error) {
         throw error;
     }
 };
 
 module.exports = {
-    getUsers,
-    getUser,
+    findUsers,
+    findOneUser,
     createNewUser,
     updateUser,
     deleteUser

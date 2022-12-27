@@ -12,9 +12,9 @@ const community = joi.object({
         .required(),
 });
 
-const getComunnitys = async (req, res) => {
+const findCommunities = async (req, res) => {
     try {
-        const allCommunitys = await communityService.getComunnitys();
+        const allCommunitys = await communityService.findCommunities();
         res.status(200).send({
             status: "OK",
             data: allCommunitys
@@ -27,7 +27,7 @@ const getComunnitys = async (req, res) => {
     }
 };
 
-const getCommunity = async (req, res) => {
+const findOneCommunity = async (req, res) => {
     const { params: { communityId } } = req;
     if(!communityId){
         res.status(404).send({
@@ -36,7 +36,7 @@ const getCommunity = async (req, res) => {
         });
     }
     try {
-        const communiity = await communityService.getOneCommunity(communityId);
+        const communiity = await communityService.findOneCommunity(communityId);
         res.status(200).send({
             status: "OK",
             data: communiity
@@ -116,8 +116,8 @@ const deleteCommunity = async (req, res) => {
 };
 
 module.exports = {
-    getComunnitys,
-    getCommunity,
+    findCommunities,
+    findOneCommunity,
     createCommunity,
     updateCommunity,
     deleteCommunity

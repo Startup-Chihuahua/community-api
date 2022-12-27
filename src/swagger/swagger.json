@@ -9,7 +9,7 @@
     "host": "localhost:3000",
     "basePath": "/",
     "paths": {
-      "/user/getUsers": {
+      "/user/findUsers": {
         "get": {
           "x-swagger-router-controller": "middleware-name1",
           "operationId": "getUsers",
@@ -25,7 +25,7 @@
           "responses": {}
         }
       },
-      "/user/getUser/{userId}": {
+      "/user/findOneUser/{userId}": {
         "get": {
           "x-swagger-router-controller": "middleware-name1",
           "operationId": "getUser",
@@ -129,7 +129,7 @@
           "responses": {}
         }
       },
-      "/company/getCompanys": {
+      "/company/findCompanies": {
         "get":{
             "x-swagger-router-controller": "middleware-name2",
             "operationId": "getCompanys",
@@ -145,7 +145,7 @@
             "responses": {}
         }
       },
-      "/company/getCompany/{companyId}":{
+      "/company/findOneCompany/{companyId}":{
         "get":{
             "x-swagger-router-controller": "middleware-name2",
             "operationId": "getCompany",
@@ -249,7 +249,7 @@
           "responses": {}
         }
       },
-      "/event/getEvents": {
+      "/event/findEvents": {
         "get": {
           "x-swagger-router-controller": "middleware-name1",
           "operationId": "getEvents",
@@ -265,7 +265,7 @@
           "responses": {}
         }
       },
-      "/event/getEvent/{eventId}": {
+      "/event/findOneEvent/{eventId}": {
         "get": {
           "x-swagger-router-controller": "middleware-name1",
           "operationId": "getEvent",
@@ -287,7 +287,7 @@
             "responses": {}
           }
       },
-      "/community/getCommunitys": {
+      "/community/findCommunities": {
         "get":{
             "x-swagger-router-controller": "middleware-name4",
             "operationId": "getCommunitys",
@@ -303,7 +303,7 @@
             "responses": {}
         }
       },
-      "/community/getCommunity/{communityId}":{
+      "/community/findOneCommunity/{communityId}":{
         "get":{
             "x-swagger-router-controller": "middleware-name4",
             "operationId": "getCommunity",

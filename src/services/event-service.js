@@ -1,30 +1,22 @@
-const eventData = require('../database/event-repository');
+const eventRepository = require('../repositories/event-repository');
 
-const getEvents = async () => {
+const findEvents = async () => {
     try {
-        const [allEvents] = await eventData.getEvents();
-        return allEvents;
+        return await eventRepository.findEvents();
     } catch (error) {
         throw error;
     }
 };
 
-const getEvent = async (eventId) => {
+const findOneEvent = async (eventId) => {
     try {
-        const [event] = await eventData.getEvent(eventId);
-        if(event.length === 0){
-            throw {
-                status: 400,
-                message: `ID not found: ${eventId}`
-            };
-        }
-        return event;
+        return await eventRepository.findOneEvent(eventId);
     } catch (error) {
         throw error;
     }
 };
 
 module.exports = {
-    getEvents,
-    getEvent
+    findEvents,
+    findOneEvent
 };

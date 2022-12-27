@@ -26,9 +26,9 @@ const user = joi.object({
         .required()
 });
 
-const getUsers = async (req, res) => {
+const findUsers = async (req, res) => {
     try {
-        const allUsers = await userService.getUsers();
+        const allUsers = await userService.findUsers();
         res.status(200).send({
             status: "OK",
             data: allUsers
@@ -41,7 +41,7 @@ const getUsers = async (req, res) => {
     }
 };
 
-const getUser = async (req, res) => {
+const findOneUser = async (req, res) => {
     const { params: {userId} } = req;
     if(!userId){
         res.status(400).send({
@@ -50,7 +50,7 @@ const getUser = async (req, res) => {
         });
     }
     try {
-        const user = await userService.getUser(userId);
+        const user = await userService.findOneUser(userId);
         res.status(200).send({ status: "OK", data: user });
     } catch (error) {
         res.status(404).send({
@@ -122,8 +122,8 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
-    getUsers,
-    getUser,
+    findUsers,
+    findOneUser,
     createUser,
     updateUser,
     deleteUser
