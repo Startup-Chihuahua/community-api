@@ -24,9 +24,9 @@ const company = joi.object({
         .required(),
 });
 
-const getCompanys = async (req, res) => {
+const findCompanies = async (req, res) => {
     try {
-        const allCompanys = await companyService.getCompanys();
+        const allCompanys = await companyService.findCompanies();
         res.status(200).send({
             status: 'OK',
             data: allCompanys
@@ -39,7 +39,7 @@ const getCompanys = async (req, res) => {
     }
 };
 
-const getCompany = async (req, res) => {
+const findOneCompany = async (req, res) => {
     const { params: { companyId } } = req;
     if(!companyId){
         res.status(400).send({
@@ -48,7 +48,7 @@ const getCompany = async (req, res) => {
             });
     }
     try {
-        const company = await companyService.getOneCompany(companyId);
+        const company = await companyService.findOneCompany(companyId);
         res.status(200).send({ status: "OK", data: company });
     } catch (error) {
         res.status(404).send({
@@ -119,8 +119,8 @@ const deleteCompany = async (req, res) => {
 };
 
 module.exports = {
-    getCompanys,
-    getCompany,
+    findCompanies,
+    findOneCompany,
     createCompany,
     updateCompany,
     deleteCompany

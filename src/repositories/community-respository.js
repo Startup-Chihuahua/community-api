@@ -1,19 +1,27 @@
 const connect = require('../connection/dbconnection');
 
-const getComunnitys = async () =>{
+const findCommunities = async () =>{
     try {
         const connection = await connect();
-        return connection.query("SELECT * FROM community");
+        const [data] = await connection.query("SELECT * FROM community");
+        return data;
     } catch (error) {
         throw { status: 500, message: error };
     }
     
 };
 
-const getOneCommunity = async (communityId) => {
+const findOneCommunity = async (communityId) => {
     try {
         const connection = await connect();
-        return connection.query("SELECT * FROM community WHERE community = ?", [communityId]);
+        const [data] = await connection.query("SELECT * FROM community WHERE community = ?", [communityId]);
+        if(data.length === 0){
+            throw {
+                status: 400,
+                message: `ID not found: ${communityId}`
+            };
+        }
+        return data;
     } catch (error) {
         throw { status: 500, message: error};
     }
@@ -33,11 +41,13 @@ const createNewCommunity = async (newCommunity) => {
 
 const updateCommunity = async (objectCommunity, communityId) => {
     try {
+        await findOneCommunity(communityId);
         const connection = await connect();
-        return connection.query("UPDATE community SET ? WHERE community = ?", [
+        const [result] = await connection.query("UPDATE community SET ? WHERE community = ?", [
             objectCommunity,
             communityId
         ]);
+        return result;
     } catch (error) {
         throw { status: 500, message: error };
     }
@@ -46,15 +56,21 @@ const updateCommunity = async (objectCommunity, communityId) => {
 const deleteCommunity = async (communityId) => {
     try {
         const connection = await connect();
-        return connection.query("DELETE FROM community WHERE community = ?", [communityId]);
+        const data = await connection.query("DELETE FROM community WHERE community = ?", [communityId]);
+        if(data[0].affectedRows === 0){
+            throw {
+                status: 400,
+                message: `ID not found: ${communityId}`
+            };
+        }
     } catch (error) {
         throw { status: 500, message: error };
     }
 };
 
 module.exports = {
-    getComunnitys,
-    getOneCommunity,
+    findCommunities,
+    findOneCommunity,
     createNewCommunity,
     updateCommunity,
     deleteCommunity

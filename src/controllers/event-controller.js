@@ -1,8 +1,8 @@
 const eventService = require('../services/event-service');
 
-const getEvents = async (req, res) => {
+const findEvents = async (req, res) => {
     try {
-        const allEvents = await eventService.getEvents();
+        const allEvents = await eventService.findEvents();
         res.send({
             status: "OK",
             data: allEvents
@@ -15,7 +15,7 @@ const getEvents = async (req, res) => {
     }
 };
 
-const getEvent = async (req, res) => {
+const findOneEvent = async (req, res) => {
     const { params: {eventId} } = req;
     if(!eventId){
         res.send({
@@ -24,7 +24,7 @@ const getEvent = async (req, res) => {
         });
     }
     try {
-        const event = await eventService.getEvent(eventId);
+        const event = await eventService.findOneEvent(eventId);
         res.send({ status: "OK", data: event });
     } catch (error) {
         res.send({
@@ -35,6 +35,6 @@ const getEvent = async (req, res) => {
 };
 
 module.exports = { 
-    getEvents,
-    getEvent
+    findEvents,
+    findOneEvent
 };

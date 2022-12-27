@@ -1,19 +1,27 @@
 const connect = require('../connection/dbconnection');
 
-const getCompanys = async () =>{
+const findCompanies = async () =>{
     try {
         const connection = await connect();
-        return connection.query("SELECT * FROM company");
+        const [data] = await connection.query("SELECT * FROM company");
+        return data;
     } catch (error) {
         throw { status: 500, message: error };
     }
     
 };
 
-const getOneCompany = async (companyId) => {
+const findOneCompany = async (companyId) => {
     try {
         const connection = await connect();
-        return connection.query("SELECT * FROM company WHERE company = ?", [companyId]);
+        const [data] = await connection.query("SELECT * FROM company WHERE company = ?", [companyId]);
+        if(data.length === 0){
+            throw {
+                status: 400,
+                message: `ID not found: ${companyId}`
+            };
+        }
+        return data;
     } catch (error) {
         throw { status: 500, message: error};
     }
@@ -36,11 +44,13 @@ const createNewCompany = async (newCompany) => {
 
 const updateCompany = async (objectCompany, companyId) => {
     try {
+        await findOneCompany(companyId);
         const connection = await connect();
-        return connection.query("UPDATE company SET ? WHERE company = ?", [
+        const [result] = await connection.query("UPDATE company SET ? WHERE company = ?", [
             objectCompany,
             companyId
         ]);
+        return result;
     } catch (error) {
         throw { status: 500, message: error };
     }
@@ -49,15 +59,21 @@ const updateCompany = async (objectCompany, companyId) => {
 const deleteCompany = async (companyId) => {
     try {
         const connection = await connect();
-        return connection.query("DELETE FROM company WHERE company = ?", [companyId]);
+        const data = await connection.query("DELETE FROM company WHERE company = ?", [companyId]);
+        if(data[0].affectedRows === 0){
+            throw {
+                status: 400,
+                message: `ID not found: ${companyId}`
+            };
+        }
     } catch (error) {
         throw { status: 500, message: error };
     }
 };
 
 module.exports = {
-    getCompanys,
-    getOneCompany,
+    findCompanies,
+    findOneCompany,
     createNewCompany,
     updateCompany,
     deleteCompany
