@@ -1,10 +1,9 @@
 const connect = require('../connection/dbconnection');
-const bcrypt = require('bcryptjs');
 
 async function findUsers() {
     try {
         const connection = await connect();
-        const [data] = await connection.query("SELECT * FROM user");
+        const [data] = await connection.query("SELECT * FROM users");
         return data;
     } catch (error) {
         throw { status: 500, message: error };
@@ -14,7 +13,7 @@ async function findUsers() {
 const findOneUser = async (userId) => {
     try {
         const connection = await connect();
-        const [data] = await connection.query("SELECT * FROM user WHERE user = ?", [userId]);
+        const [data] = await connection.query("SELECT * FROM users WHERE user = ?", [userId]);
         if(data.length === 0){
             throw {
                 status: 400,
@@ -30,13 +29,21 @@ const findOneUser = async (userId) => {
 const createNewUser = async (newUser) => {
     try {
         const connection = await connect();
-        return connection.query("INSERT INTO user (name, lastName, mail, password, curp, phone) VALUES (?,?,?,?,?,?)", [
-            newUser.name,
-            newUser.lastName,
+        return connection.query("INSERT INTO users (mail, password, name, lastname, curp, birth_date, gender, state, town, neighborhood, program, tags, emprendedor, aliado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", [
             newUser.mail,
-            bcrypt.hashSync(newUser.password),
+            newUser.password,
+            newUser.name,
+            newUser.lastname,
             newUser.curp,
-            newUser.phone
+            newUser.birth_date,
+            newUser.gender,
+            newUser.state,
+            newUser.town,
+            newUser.neighborhood,
+            newUser.program,
+            newUser.tags,
+            newUser.emprendedor,
+            newUser.aliado
         ]);
     } catch (error) {
         throw { status: 500, message: error };
@@ -47,13 +54,21 @@ const updateUser = async (objectUser, userId) => {
     try {
         await findOneUser(userId);
         const connection = await connect();
-        const [result] = await connection.query("UPDATE user SET name = ?, lastName = ?, mail = ?, password = ?, curp = ?, phone = ? WHERE user = ?", [
-            objectUser.name,
-            objectUser.lastName,
+        const [result] = await connection.query("UPDATE users SET mail = ?, password = ?, name = ?, lastname = ?, curp = ?, birth_date = ?, gender = ?, state = ?, town = ?, neighborhood = ?, program = ?, tags = ?, emprendedor = ?, aliado = ?  WHERE user = ?", [
             objectUser.mail,
-            bcrypt.hashSync(objectUser.password),
+            objectUser.password,
+            objectUser.name,
+            objectUser.lastname,
             objectUser.curp,
-            objectUser.phone,
+            objectUser.birth_date,
+            objectUser.gender,
+            objectUser.state,
+            objectUser.town,
+            objectUser.neighborhood,
+            objectUser.program,
+            objectUser.tags,
+            objectUser.emprendedor,
+            objectUser.aliado,
             userId
         ]);
         return result;
@@ -65,7 +80,7 @@ const updateUser = async (objectUser, userId) => {
 const deleteUser = async (userId) => {
     try {
         const connection = await connect();
-        const data = await connection.query("DELETE FROM user WHERE user = ?", [userId]);
+        const data = await connection.query("DELETE FROM users WHERE user = ?", [userId]);
         if(data[0].affectedRows === 0){
             throw {
                 status: 400,
@@ -80,7 +95,7 @@ const deleteUser = async (userId) => {
 const findUserByEmail = async (mail) => {
     try {
         const connection = await connect();
-        const [data] = await connection.query("SELECT * FROM user WHERE mail = ?", [mail]);
+        const [data] = await connection.query("SELECT * FROM users WHERE mail = ?", [mail]);
         if(data.length === 0){
             throw {
                 status: 404,

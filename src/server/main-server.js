@@ -29,7 +29,7 @@ function middleWares(app){
 
 function assingRoutes(app){
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-    app.use('/user', verifyToken, user);
+    app.use('/user', user);
     app.use('/company', verifyToken, company);
     app.use('/event', verifyToken, event);
     app.use('/community', verifyToken, community);

@@ -1,14 +1,22 @@
 CREATE DATABASE IF NOT EXISTS community;
 use community;
 
-CREATE TABLE IF NOT EXISTS user(
-    user INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50),
-    lastName VARCHAR(50),
-    mail VARCHAR(50),
-    password VARCHAR(100),
-    curp VARCHAR(20),
-    phone VARCHAR(10)
+create table users(
+	user INT PRIMARY KEY AUTO_INCREMENT,
+	mail VARCHAR(100),
+	password VARCHAR(100),
+	name VARCHAR(50),
+	lastname VARCHAR(100),
+	curp VARCHAR(20),
+	birth_date date,
+	gender VARCHAR(20),
+	state VARCHAR(50),
+	town VARCHAR(50),
+	neighborhood VARCHAR(50),
+	program VARCHAR(100),
+	tags VARCHAR(15),
+	emprendedor VARCHAR(20),
+	aliado VARCHAR(20)
 );
 
 CREATE TABLE IF NOT EXISTS company(
