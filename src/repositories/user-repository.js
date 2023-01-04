@@ -1,7 +1,5 @@
 const connect = require('../connection/dbconnection');
 const bcrypt = require('bcryptjs');
-const { password, user } = require('../connection/config');
-
 async function findUsers() {
     try {
         const connection = await connect();
