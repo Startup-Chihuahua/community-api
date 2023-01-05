@@ -9,10 +9,8 @@ const { SECRET_KEY } = process.env;
 const createLog = async ({ mail, password }) => {
   try {
     const user = await userRepository.findUserByEmail(mail);
-    const pass = cryptr.encrypt(password);
-    console.log(`pass = ${pass}`);
-    console.log(`password = ${password}`);
-    if (pass === user.password) {
+    const pass = cryptr.decrypt(user.password);
+    if (pass === password) {
       const accessToken = jwt.sign({ id: user.user }, SECRET_KEY, {
         expiresIn: '2h',
       });
