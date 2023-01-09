@@ -1,3 +1,6 @@
+const Cryptr = require('cryptr');
+
+const cryptr = new Cryptr(process.env.SECRET_CRYPTR);
 const connect = require('../connection/dbconnection');
 
 async function findUsers() {
@@ -109,10 +112,10 @@ const findUserByEmail = async (mail) => {
 };
 
 module.exports = {
-    findUsers,
-    findOneUser,
-    createNewUser,
-    updateUser,
-    deleteUser,
-    findUserByEmail
+  findUsers,
+  findOneUser,
+  createNewUser,
+  updateUser,
+  deleteUser,
+  findUserByEmail,
 };

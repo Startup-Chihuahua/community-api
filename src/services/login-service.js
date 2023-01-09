@@ -1,31 +1,34 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const Cryptr = require('cryptr');
+
+const cryptr = new Cryptr(process.env.SECRET_CRYPTR);
 const userRepository = require('../repositories/user-repository');
-const SECRET_KEY = process.env.SECRET_KEY;
+
+const { SECRET_KEY } = process.env;
 
 const createLog = async ({ mail, password }) => {
-    try {
-        const user = await userRepository.findUserByEmail(mail);
-        // const validatePass = bcrypt.compareSync(password, userCreden.password);
-        if(password === user.password){
-            const accessToken = jwt.sign({ id: user.user }, SECRET_KEY,  {expiresIn: '2h'});
-            const dataUser = {
-                user: user.user,
-                accessToken: accessToken,
-            };
-            return dataUser; 
-        } else {
-            throw{
-                status: 404,
-                message: "Mail or password wrong"
-            };
-        }
-    } catch (error) {
-        throw error;
+  try {
+    const user = await userRepository.findUserByEmail(mail);
+    const pass = cryptr.decrypt(user.password);
+    if (pass === password) {
+      const accessToken = jwt.sign({ id: user.user }, SECRET_KEY, {
+        expiresIn: '2h',
+      });
+      const dataUser = {
+        user: user.user,
+        accessToken,
+      };
+      return dataUser;
     }
-    
+    throw {
+      status: 404,
+      message: 'Mail or password wrong',
+    };
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {
-    createLog
+  createLog,
 };

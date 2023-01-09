@@ -1,11 +1,12 @@
 const express = require('express');
 const companyController = require('../controllers/company-controller');
+
 const router = express.Router();
 
-router.get("/findCompanies", companyController.findCompanies);
-router.get("/findOneCompany/:companyId", companyController.findOneCompany);
-router.post("/createCompany", companyController.createCompany);
-router.put("/updateCompany/:companyId", companyController.updateCompany);
-router.delete("/deleteCompany/:companyId", companyController.deleteCompany);
+router.get('/companies', companyController.findCompanies);
+router.get('/companies/:companyId', companyController.findOneCompany);
+router.post('/companies', companyController.createCompany);
+router.put('/companies/:companyId', companyController.updateCompany);
+router.delete('/companies/:companyId', companyController.deleteCompany);
 
 module.exports = router;
