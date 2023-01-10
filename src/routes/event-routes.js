@@ -1,8 +1,9 @@
 const express = require('express');
-const eventController = require ('../controllers/event-controller');
+const eventController = require('../controllers/event-controller');
+
 const router = express.Router();
 
-router.get("/findEvents", eventController.findEvents);
-router.get("/findOneEvent/:eventId", eventController.findOneEvent);
+router.get('/events', eventController.findEvents);
+router.get('/events/:eventId', eventController.findOneEvent);
 
 module.exports = router;

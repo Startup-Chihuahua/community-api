@@ -9,4 +9,5 @@ USER =
 PASSWORD =
 DATABASE = 
 SECRET_KEY = 
+PASS_MAIL = 
 ```

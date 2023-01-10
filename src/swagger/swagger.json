@@ -1,37 +1,65 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "title": "",
-      "description": "",
-      "version": "1.0"
-    },
-    "produces": ["application/json"],
-    "host": "localhost:3000",
-    "basePath": "/",
-    "paths": {
-      "/user/findUsers": {
-        "get": {
-          "x-swagger-router-controller": "middleware-name1",
-          "operationId": "getUsers",
-          "tags": ["User Data"],
-          "summary": "Get all Users",
-          "parameters": [{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "description": "",
+    "version": "1.0"
+  },
+  "produces": ["application/json"],
+  "host": "localhost:3000",
+  "basePath": "/",
+  "paths": {
+    "/users": {
+      "get": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "getUsers",
+        "tags": ["User Data"],
+        "summary": "Get all Users",
+        "parameters": [
+          {
             "name": "auth-token",
             "in": "header",
             "description": "Token",
             "required": true,
             "type": "string"
-          }],
-          "responses": {}
-        }
+          }
+        ],
+        "responses": {}
       },
-      "/user/findOneUser/{userId}": {
-        "get": {
-          "x-swagger-router-controller": "middleware-name1",
-          "operationId": "getUser",
-          "tags": ["User Data"],
-          "summary": "Get one User",
-          "parameters": [{
+      "post": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "createUser",
+        "tags": ["User Data"],
+        "summary": "Add new user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create new User",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/User"
+            }
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "getUser",
+        "tags": ["User Data"],
+        "summary": "Get one User",
+        "parameters": [
+          {
             "name": "userId",
             "in": "path",
             "description": "ID of user that needs to be fetched",
@@ -43,42 +71,17 @@
             "description": "Token",
             "required": true,
             "type": "string"
-          }],
-          "responses": {}
-        }
+          }
+        ],
+        "responses": {}
       },
-      "/user/createUser":{
-        "post":{
-            "x-swagger-router-controller": "middleware-name1",
-            "operationId": "createUser",
-            "tags": ["User Data"],
-            "summary": "Add new user",
-            "parameters": [{
-                "in": "body",
-                "name": "body",
-                "description": "Create new User",
-                "required": true,
-                "schema": {
-                    "$ref": "#definitions/User"
-                }
-            },
-            {
-              "name": "auth-token",
-              "in": "header",
-              "description": "Token",
-              "required": true,
-              "type": "string"
-            }],
-            "responses": {}
-        }
-      },
-      "/user/updateUser/{userId}":{
-        "put":{
-          "x-swagger-router-controller": "middleware-name1",
-          "operationId": "updateUser",
-          "tags": ["User Data"],
-          "summary": "Update a user",
-          "parameters": [{
+      "put": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "updateUser",
+        "tags": ["User Data"],
+        "summary": "Update a user",
+        "parameters": [
+          {
             "name": "userId",
             "in": "path",
             "description": "User id to update",
@@ -101,17 +104,17 @@
             "description": "Token",
             "required": true,
             "type": "string"
-          }],
-          "responses": {}
-        }
+          }
+        ],
+        "responses": {}
       },
-      "/user/deleteUser/{userId}":{
-        "delete":{
-          "x-swagger-router-controller": "middleware-name1",
-          "operationId": "deleteUser",
-          "tags": ["User Data"],
-          "summary": "Delete a user",
-          "parameters": [{
+      "delete": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "deleteUser",
+        "tags": ["User Data"],
+        "summary": "Delete a user",
+        "parameters": [
+          {
             "name": "userId",
             "in": "path",
             "description": "User id to update",
@@ -125,80 +128,84 @@
             "description": "Token",
             "required": true,
             "type": "string"
-          }],
-          "responses": {}
-        }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/companies": {
+      "get": {
+        "x-swagger-router-controller": "middleware-name2",
+        "operationId": "getCompanys",
+        "tags": ["Company Data"],
+        "summary": "Get all Companys",
+        "parameters": [
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
       },
-      "/company/findCompanies": {
-        "get":{
-            "x-swagger-router-controller": "middleware-name2",
-            "operationId": "getCompanys",
-            "tags": ["Company Data"],
-            "summary": "Get all Companys",
-            "parameters": [{
-              "name": "auth-token",
-              "in": "header",
-              "description": "Token",
-              "required": true,
-              "type": "string"
-            }],
-            "responses": {}
-        }
+      "post": {
+        "x-swagger-router-controller": "middleware-name2",
+        "operationId": "createCompany",
+        "tags": ["Company Data"],
+        "summary": "Add new company",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create new Company",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/Company"
+            }
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/companies/{companyId}": {
+      "get": {
+        "x-swagger-router-controller": "middleware-name2",
+        "operationId": "getCompany",
+        "tags": ["Company Data"],
+        "summary": "Get one Company",
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "ID of company",
+            "type": "integer"
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
       },
-      "/company/findOneCompany/{companyId}":{
-        "get":{
-            "x-swagger-router-controller": "middleware-name2",
-            "operationId": "getCompany",
-            "tags": ["Company Data"],
-            "summary": "Get one Company",
-            "parameters": [{
-                "name": "companyId",
-                "in": "path",
-                "description": "ID of company",
-                "type": "integer"
-            },
-            {
-              "name": "auth-token",
-              "in": "header",
-              "description": "Token",
-              "required": true,
-              "type": "string"
-            }],
-            "responses": {}
-        }
-      },
-      "/company/createCompany":{
-        "post":{
-            "x-swagger-router-controller": "middleware-name2",
-            "operationId": "createCompany",
-            "tags": ["Company Data"],
-            "summary": "Add new company",
-            "parameters": [{
-                "in": "body",
-                "name": "body",
-                "description": "Create new Company",
-                "required": true,
-                "schema": {
-                    "$ref": "#definitions/Company"
-                }
-            },
-            {
-              "name": "auth-token",
-              "in": "header",
-              "description": "Token",
-              "required": true,
-              "type": "string"
-            }],
-            "responses": {}
-        }
-      },
-      "/company/updateCompany/{companyId}":{
-        "put":{
-          "x-swagger-router-controller": "middleware-name2",
-          "operationId": "updateCompany",
-          "tags": ["Company Data"],
-          "summary": "Update a company",
-          "parameters": [{
+      "put": {
+        "x-swagger-router-controller": "middleware-name2",
+        "operationId": "updateCompany",
+        "tags": ["Company Data"],
+        "summary": "Update a company",
+        "parameters": [
+          {
             "name": "companyId",
             "in": "path",
             "description": "Company id to update",
@@ -221,17 +228,17 @@
             "description": "Token",
             "required": true,
             "type": "string"
-          }],
-          "responses": {}
-        }
+          }
+        ],
+        "responses": {}
       },
-      "/company/deleteCompany/{companyId}":{
-        "delete":{
-          "x-swagger-router-controller": "middleware-name2",
-          "operationId": "deleteCompany",
-          "tags": ["Company Data"],
-          "summary": "Delete a company",
-          "parameters": [{
+      "delete": {
+        "x-swagger-router-controller": "middleware-name2",
+        "operationId": "deleteCompany",
+        "tags": ["Company Data"],
+        "summary": "Delete a company",
+        "parameters": [
+          {
             "name": "companyId",
             "in": "path",
             "description": "Company id to delete",
@@ -245,118 +252,126 @@
             "description": "Token",
             "required": true,
             "type": "string"
-          }],
-          "responses": {}
-        }
-      },
-      "/event/findEvents": {
-        "get": {
-          "x-swagger-router-controller": "middleware-name1",
-          "operationId": "getEvents",
-          "tags": ["Event Data"],
-          "summary": "Get all Events",
-          "parameters": [{
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/events": {
+      "get": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "getEvents",
+        "tags": ["Event Data"],
+        "summary": "Get all Events",
+        "parameters": [
+          {
             "name": "auth-token",
             "in": "header",
             "description": "Token",
             "required": true,
             "type": "string"
-          }],
-          "responses": {}
-        }
-      },
-      "/event/findOneEvent/{eventId}": {
-        "get": {
-          "x-swagger-router-controller": "middleware-name1",
-          "operationId": "getEvent",
-          "tags": ["Event Data"],
-          "summary": "Get one Event",
-          "parameters": [{
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/events/{eventId}": {
+      "get": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "getEvent",
+        "tags": ["Event Data"],
+        "summary": "Get one Event",
+        "parameters": [
+          {
             "name": "eventId",
             "in": "path",
             "description": "ID of user that needs to be fetched",
             "type": "integer"
-            },
-            {
-              "name": "auth-token",
-              "in": "header",
-              "description": "Token",
-              "required": true,
-              "type": "string"
-            }],
-            "responses": {}
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
           }
+        ],
+        "responses": {}
+      }
+    },
+    "/communities": {
+      "get": {
+        "x-swagger-router-controller": "middleware-name4",
+        "operationId": "getCommunitys",
+        "tags": ["Community Data"],
+        "summary": "Get all Communitys",
+        "parameters": [
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
       },
-      "/community/findCommunities": {
-        "get":{
-            "x-swagger-router-controller": "middleware-name4",
-            "operationId": "getCommunitys",
-            "tags": ["Community Data"],
-            "summary": "Get all Communitys",
-            "parameters": [{
-              "name": "auth-token",
-              "in": "header",
-              "description": "Token",
-              "required": true,
-              "type": "string"
-            }],
-            "responses": {}
-        }
+      "post": {
+        "x-swagger-router-controller": "middleware-name4",
+        "operationId": "createCommunity",
+        "tags": ["Community Data"],
+        "summary": "Add new community",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create new Community",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/Community"
+            }
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/communities/{communityId}": {
+      "get": {
+        "x-swagger-router-controller": "middleware-name4",
+        "operationId": "getCommunity",
+        "tags": ["Community Data"],
+        "summary": "Get one Community",
+        "parameters": [
+          {
+            "name": "communityId",
+            "in": "path",
+            "description": "ID of community",
+            "type": "integer"
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
       },
-      "/community/findOneCommunity/{communityId}":{
-        "get":{
-            "x-swagger-router-controller": "middleware-name4",
-            "operationId": "getCommunity",
-            "tags": ["Community Data"],
-            "summary": "Get one Community",
-            "parameters": [{
-                "name": "communityId",
-                "in": "path",
-                "description": "ID of community",
-                "type": "integer"
-            },
-            {
-              "name": "auth-token",
-              "in": "header",
-              "description": "Token",
-              "required": true,
-              "type": "string"
-            }],
-            "responses": {}
-        }
-      },
-      "/community/createCommunity":{
-        "post":{
-            "x-swagger-router-controller": "middleware-name4",
-            "operationId": "createCommunity",
-            "tags": ["Community Data"],
-            "summary": "Add new community",
-            "parameters": [{
-                "in": "body",
-                "name": "body",
-                "description": "Create new Community",
-                "required": true,
-                "schema": {
-                    "$ref": "#definitions/Community"
-                }
-            },
-            {
-              "name": "auth-token",
-              "in": "header",
-              "description": "Token",
-              "required": true,
-              "type": "string"
-            }],
-            "responses": {}
-        }
-      },
-      "/community/updateCommunity/{communityId}":{
-        "put":{
-          "x-swagger-router-controller": "middleware-name4",
-          "operationId": "updateCommunity",
-          "tags": ["Community Data"],
-          "summary": "Update a community",
-          "parameters": [{
+      "put": {
+        "x-swagger-router-controller": "middleware-name4",
+        "operationId": "updateCommunity",
+        "tags": ["Community Data"],
+        "summary": "Update a community",
+        "parameters": [
+          {
             "name": "communityId",
             "in": "path",
             "description": "Community id to update",
@@ -379,17 +394,17 @@
             "description": "Token",
             "required": true,
             "type": "string"
-          }],
-          "responses": {}
-        }
+          }
+        ],
+        "responses": {}
       },
-      "/community/deleteCommunity/{communityId}":{
-        "delete":{
-          "x-swagger-router-controller": "middleware-name4",
-          "operationId": "deleteCommunity",
-          "tags": ["Community Data"],
-          "summary": "Delete a company",
-          "parameters": [{
+      "delete": {
+        "x-swagger-router-controller": "middleware-name4",
+        "operationId": "deleteCommunity",
+        "tags": ["Community Data"],
+        "summary": "Delete a company",
+        "parameters": [
+          {
             "name": "communityId",
             "in": "path",
             "description": "Community id to update",
@@ -403,127 +418,130 @@
             "description": "Token",
             "required": true,
             "type": "string"
-          }],
-          "responses": {}
-        }
-      },
-      "/login":{
-        "post":{
-          "x-swagger-router-controller": "middleware-name3",
-          "operationId": "login",
-          "tags": ["Login"],
-          "summary": "Log a user",
-          "parameters": [{
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/login": {
+      "post": {
+        "x-swagger-router-controller": "middleware-name3",
+        "operationId": "login",
+        "tags": ["Login"],
+        "summary": "Log a user",
+        "parameters": [
+          {
             "in": "body",
             "name": "body",
             "description": "Login data",
             "required": true,
             "schema": {
-                "$ref": "#definitions/Login"
+              "$ref": "#definitions/Login"
             }
-        }],
-        "responses": {}  
-        }
-    }
-    },
-    "definitions": {
-      "User": {
-        "properties": {
-          "name":{
-            "type": "string"
-          },
-          "lastName":{
-            "type": "string"
-          },
-          "mail":{
-            "type": "string"
-          },
-          "password":{
-            "type": "string"
-          },
-          "curp":{
-            "type": "string"
-          },
-          "phone":{
-            "type": "string"
           }
-        },
-        "xml": {
-          "name": "User"
-        }
-      },
-      "Company": {
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "location": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "web": {
-            "type": "string"
-          },
-          "contact": {
-            "type": "string"
-          }
-        },
-        "xml": {
-          "name": "Company"
-        }
-      },
-      "Event": {
-        "properties": {
-          "idCompany": {
-            "type": "int"
-          },
-          "capacity": {
-            "type": "int"
-          },
-          "cost": {
-            "type": "decimal"
-          },
-          "modality": {
-            "type": "string"
-          },
-          "dateEvent": {
-            "type": "date"
-          },
-          "location": {
-            "type": "string"
-          }
-        },
-        "xml": {
-          "name": "Company"
-        }
-      },
-      "Community": {
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          }
-        },
-        "xml": {
-          "name": "Company"
-        }
-      },
-      "Login": {
-        "properties": {
-          "mail": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          }
-        },
-        "xml": {
-          "name": "Company"
-        }
+        ],
+        "responses": {}
       }
     }
+  },
+  "definitions": {
+    "User": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "curp": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Company": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "web": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Company"
+      }
+    },
+    "Event": {
+      "properties": {
+        "idCompany": {
+          "type": "int"
+        },
+        "capacity": {
+          "type": "int"
+        },
+        "cost": {
+          "type": "decimal"
+        },
+        "modality": {
+          "type": "string"
+        },
+        "dateEvent": {
+          "type": "date"
+        },
+        "location": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Company"
+      }
+    },
+    "Community": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Company"
+      }
+    },
+    "Login": {
+      "properties": {
+        "mail": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Company"
+      }
+    }
+  }
 }
