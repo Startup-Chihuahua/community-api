@@ -1,44 +1,34 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const userData = require('../database/user-data');
-const SECRET_KEY = process.env.SECRET_KEY;
+const Cryptr = require('cryptr');
+
+const cryptr = new Cryptr(process.env.SECRET_CRYPTR);
+const userRepository = require('../repositories/user-repository');
+
+const { SECRET_KEY } = process.env;
 
 const createLog = async ({ mail, password }) => {
-    try {
-        const user = await userData.getMail(mail);
-        if(user[0].length === 0){
-            throw{
-                status: 400,
-                message: "Mail not found"
-            };
-        } else {
-            const userCreden = user[0][0];
-            const validatePass = bcrypt.compareSync(password, userCreden.password);
-            if(validatePass){
-                const expiresIn = '10h';
-                const accessToken = jwt.sign({ id: userCreden.user }, SECRET_KEY, { expiresIn: expiresIn });
-                const dataUser = {
-                    user: userCreden.user,
-                    name: userCreden.name,
-                    lastName: userCreden.lastName,
-                    mail: userCreden.mail,
-                    accessToken: accessToken,
-                    expiresIn: expiresIn
-                };
-                return dataUser; 
-            } else {
-                throw{
-                    status: 404,
-                    message: "Wrong password"
-                };
-            }
-        }
-    } catch (error) {
-        throw error;
+  try {
+    const user = await userRepository.findUserByEmail(mail);
+    const pass = cryptr.decrypt(user.password);
+    if (pass === password) {
+      const accessToken = jwt.sign({ id: user.user }, SECRET_KEY, {
+        expiresIn: '2h',
+      });
+      const dataUser = {
+        user: user.user,
+        accessToken,
+      };
+      return dataUser;
     }
-    
+    throw {
+      status: 404,
+      message: 'Mail or password wrong',
+    };
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {
-    createLog
+  createLog,
 };

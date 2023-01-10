@@ -1,0 +1,22 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.insertSpaces": true,
+  "editor.formatOnPaste": true,
+  "editor.detectIndentation": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  // "prettier.trailingComma": "all",
+  "prettier.singleQuote": true,
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "[javascriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
+  }
+}

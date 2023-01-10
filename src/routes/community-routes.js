@@ -1,11 +1,11 @@
 const express = require('express');
 const communityController = require('../controllers/community-controller');
+
 const router = express.Router();
 
-router.get("/getCommunitys", communityController.getComunnitys);
-router.get("/getCommunity/:communityId", communityController.getCommunity);
-router.post("/createCommunity", communityController.createCommunity);
-router.put("/updateCommunity/:communityId", communityController.updateCommunity);
-router.delete("/deleteCommunity/:communityId", communityController.deleteCommunity);
-
+router.get('/communities', communityController.findCommunities);
+router.get('/communities/:communityId', communityController.findOneCommunity);
+router.post('/communities', communityController.createCommunity);
+router.put('/communities/:communityId', communityController.updateCommunity);
+router.delete('/communities/:communityId', communityController.deleteCommunity);
 module.exports = router;
