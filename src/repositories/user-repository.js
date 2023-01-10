@@ -16,7 +16,7 @@ async function findUsers() {
 const findOneUser = async (userId) => {
     try {
         const connection = await connect();
-        const [data] = await connection.query("SELECT * FROM users WHERE user = ?", [userId]);
+        const [data] = await connection.query("SELECT * FROM users WHERE id = ?", [userId]);
         if(data.length === 0){
             throw {
                 status: 400,
@@ -57,7 +57,7 @@ const updateUser = async (objectUser, userId) => {
     try {
         await findOneUser(userId);
         const connection = await connect();
-        const [result] = await connection.query("UPDATE users SET mail = ?, password = ?, name = ?, lastname = ?, curp = ?, birth_date = ?, gender = ?, state = ?, town = ?, neighborhood = ?, program = ?, tags = ?, emprendedor = ?, aliado = ?  WHERE user = ?", [
+        const [result] = await connection.query("UPDATE users SET mail = ?, password = ?, name = ?, lastname = ?, curp = ?, birth_date = ?, gender = ?, state = ?, town = ?, neighborhood = ?, program = ?, tags = ?, emprendedor = ?, aliado = ?  WHERE id = ?", [
             objectUser.mail,
             objectUser.password,
             objectUser.name,
@@ -83,7 +83,7 @@ const updateUser = async (objectUser, userId) => {
 const deleteUser = async (userId) => {
     try {
         const connection = await connect();
-        const data = await connection.query("DELETE FROM users WHERE user = ?", [userId]);
+        const data = await connection.query("DELETE FROM users WHERE id = ?", [userId]);
         if(data[0].affectedRows === 0){
             throw {
                 status: 400,
