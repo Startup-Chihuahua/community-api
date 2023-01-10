@@ -2,7 +2,6 @@ const Cryptr = require('cryptr');
 
 const cryptr = new Cryptr(process.env.SECRET_CRYPTR);
 const connect = require('../connection/dbconnection');
-
 async function findUsers() {
     try {
         const connection = await connect();
@@ -111,11 +110,24 @@ const findUserByEmail = async (mail) => {
     }
 };
 
+const setPassword = async (userid, password) => {
+    try {
+        const connection = await connect();
+        return connection.query("UPDATE user SET password = ? WHERE user = ?", [
+            password,
+            userid
+        ]);
+    } catch (error) {
+        throw { status: 500, message: error };
+    }
+};
+
 module.exports = {
-  findUsers,
-  findOneUser,
-  createNewUser,
-  updateUser,
-  deleteUser,
-  findUserByEmail,
+    findUsers,
+    findOneUser,
+    createNewUser,
+    updateUser,
+    deleteUser,
+    setPassword,
+    findUserByEmail
 };
