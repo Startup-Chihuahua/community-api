@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS community;
 use community;
 
 CREATE TABLE IF NOT EXISTS user(
-    user INT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50),
     lastName VARCHAR(50),
     mail VARCHAR(50),

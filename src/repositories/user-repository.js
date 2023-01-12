@@ -2,6 +2,7 @@ const Cryptr = require('cryptr');
 
 const cryptr = new Cryptr(process.env.SECRET_CRYPTR);
 const connect = require('../connection/dbconnection');
+
 async function findUsers() {
   try {
     const connection = await connect();
@@ -15,7 +16,7 @@ async function findUsers() {
 const findOneUser = async (userId) => {
   try {
     const connection = await connect();
-    const [data] = await connection.query('SELECT * FROM user WHERE user = ?', [
+    const [data] = await connection.query('SELECT * FROM user WHERE id = ?', [
       userId,
     ]);
     if (data.length === 0) {
@@ -54,7 +55,7 @@ const updateUser = async (objectUser, userId) => {
     await findOneUser(userId);
     const connection = await connect();
     const [result] = await connection.query(
-      'UPDATE user SET name = ?, lastName = ?, mail = ?, password = ?, curp = ?, phone = ? WHERE user = ?',
+      'UPDATE user SET name = ?, lastName = ?, mail = ?, password = ?, curp = ?, phone = ? WHERE id = ?',
       [
         objectUser.name,
         objectUser.lastName,
@@ -74,7 +75,7 @@ const updateUser = async (objectUser, userId) => {
 const deleteUser = async (userId) => {
   try {
     const connection = await connect();
-    const data = await connection.query('DELETE FROM user WHERE user = ?', [
+    const data = await connection.query('DELETE FROM user WHERE id = ?', [
       userId,
     ]);
     if (data[0].affectedRows === 0) {
@@ -107,23 +108,23 @@ const findUserByEmail = async (mail) => {
 };
 
 const setPassword = async (userid, password) => {
-    try {
-        const connection = await connect();
-        return connection.query("UPDATE user SET password = ? WHERE user = ?", [
-            password,
-            userid
-        ]);
-    } catch (error) {
-        throw { status: 500, message: error };
-    }
+  try {
+    const connection = await connect();
+    return connection.query('UPDATE user SET password = ? WHERE id = ?', [
+      password,
+      userid,
+    ]);
+  } catch (error) {
+    throw { status: 500, message: error };
+  }
 };
 
 module.exports = {
-    findUsers,
-    findOneUser,
-    createNewUser,
-    updateUser,
-    deleteUser,
-    setPassword,
-    findUserByEmail
+  findUsers,
+  findOneUser,
+  createNewUser,
+  updateUser,
+  deleteUser,
+  setPassword,
+  findUserByEmail,
 };
