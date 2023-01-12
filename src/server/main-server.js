@@ -11,6 +11,9 @@ const company = require('../routes/company-routes');
 const event = require('../routes/event-routes');
 const community = require('../routes/community-routes');
 const login = require('../routes/login-routes');
+
+const gen = require('../routes/generatePass-routes'); 
+
 const verifyToken = require('../routes/validate-token');
 
 function middleWares(app) {

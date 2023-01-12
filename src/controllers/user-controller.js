@@ -1,54 +1,21 @@
-const userService = require("../services/user-service");
+const userService = require('../services/user-service');
 const joi = require('joi').extend(require('@joi/date'));
 
 const user = joi.object({
-    mail: joi.string()
-        .email()
-        .max(100)
-        .required(),
-    password: joi.string()
-        .min(8)
-        .max(100)
-        .required(),
-    name: joi.string()
-        .min(3)
-        .max(50)
-        .required(),
-    lastname: joi.string()
-        .min(3)
-        .max(100)
-        .required(),
-    curp: joi.string()
-        .uppercase()
-        .max(20)
-        .required(),
-    birth_date: joi.date().utc()
-        .format('YYYY-MM-DD')
-        .required(),
-    gender: joi.string()
-        .max(20)
-        .required(),
-    state: joi.string()
-        .max(50)
-        .required(),
-    town: joi.string()
-        .max(50)
-        .required(),
-    neighborhood: joi.string()
-        .max(50)
-        .required(),
-    program: joi.string()
-        .max(100)
-        .required(),
-    tags: joi.string()
-        .max(15)
-        .required(),
-    emprendedor: joi.string()
-        .max(20)
-        .required(),
-    aliado: joi.string()
-        .max(20)
-        .required()
+  mail: joi.string().email().max(100).required(),
+  password: joi.string().min(8).max(100).required(),
+  name: joi.string().min(3).max(50).required(),
+  lastname: joi.string().min(3).max(100).required(),
+  curp: joi.string().uppercase().max(20).required(),
+  birth_date: joi.date().utc().format('YYYY-MM-DD').required(),
+  gender: joi.string().max(20).required(),
+  state: joi.string().max(50).required(),
+  town: joi.string().max(50).required(),
+  neighborhood: joi.string().max(50).required(),
+  program: joi.string().max(100).required(),
+  tags: joi.string().max(15).required(),
+  emprendedor: joi.string().max(20).required(),
+  aliado: joi.string().max(20).required(),
 });
 
 const findUsers = async (req, res) => {
