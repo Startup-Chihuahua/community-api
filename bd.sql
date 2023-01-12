@@ -4,7 +4,7 @@ use community;
 create table users(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	mail VARCHAR(100),
-	password VARCHAR(100),
+	password VARCHAR(500),
 	name VARCHAR(50),
 	lastname VARCHAR(100),
 	curp VARCHAR(20),

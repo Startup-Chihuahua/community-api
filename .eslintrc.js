@@ -15,6 +15,7 @@ module.exports = {
     'no-throw-literal': 'off',
     'consistent-return': 'off',
     'no-useless-catch': 'off',
+    'import/order': 'off',
     'prettier/prettier': [
       'error',
       {

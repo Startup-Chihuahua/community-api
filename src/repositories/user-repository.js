@@ -38,7 +38,7 @@ const createNewUser = async (newUser) => {
       'INSERT INTO users (mail, password, name, lastname, curp, birth_date, gender, state, town, neighborhood, program, tags, emprendedor, aliado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
       [
         newUser.mail,
-        newUser.password,
+        cryptr.encrypt(newUser.password),
         newUser.name,
         newUser.lastname,
         newUser.curp,
@@ -66,7 +66,7 @@ const updateUser = async (objectUser, userId) => {
       'UPDATE users SET mail = ?, password = ?, name = ?, lastname = ?, curp = ?, birth_date = ?, gender = ?, state = ?, town = ?, neighborhood = ?, program = ?, tags = ?, emprendedor = ?, aliado = ?  WHERE id = ?',
       [
         objectUser.mail,
-        objectUser.password,
+        cryptr.encrypt(objectUser.password),
         objectUser.name,
         objectUser.lastname,
         objectUser.curp,

@@ -12,8 +12,6 @@ const event = require('../routes/event-routes');
 const community = require('../routes/community-routes');
 const login = require('../routes/login-routes');
 
-const gen = require('../routes/generatePass-routes'); 
-
 const verifyToken = require('../routes/validate-token');
 
 function middleWares(app) {
@@ -25,7 +23,7 @@ function middleWares(app) {
 function assingRoutes(app) {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   app.use('', login);
-  app.use('', user);
+  app.use('', verifyToken, user);
   app.use('', verifyToken, company);
   app.use('', verifyToken, event);
   app.use('', verifyToken, community);
