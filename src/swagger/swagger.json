@@ -438,36 +438,57 @@
             "schema": {
               "$ref": "#definitions/Login"
             }
-          }
-        ],
-        "responses": {}
-      }
+        }],
+        "responses": {}  
+        }
     }
   },
   "definitions": {
     "User": {
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "mail": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "curp": {
-          "type": "string"
-        },
-        "phone": {
-          "type": "string"
-        }
-      },
-      "xml": {
-        "name": "User"
+        "properties": {
+          "mail":{
+            "type": "string"
+          },
+          "password":{
+            "type": "string"
+          },
+          "name":{
+            "type": "string"
+          },
+          "lastname":{
+            "type": "string"
+          },
+          "curp":{
+            "type": "string"
+          },
+          "birth_date":{
+            "type": "string"
+          },
+          "gender":{
+            "type": "string"
+          },
+          "state":{
+            "type": "string"
+          },
+          "town":{
+            "type": "string"
+          },
+          "neighborhood":{
+            "type": "string"
+          },
+          "program":{
+            "type": "string"
+          },
+          "tags":{
+            "type": "string"
+          },
+          "emprendedor":{
+            "type": "string"
+          },
+          "aliado":{
+            "type": "string"
+          },
+        "responses": {}
       }
     },
     "Company": {
