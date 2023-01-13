@@ -19,6 +19,12 @@ create table users(
 	aliado VARCHAR(20)
 );
 
+create table mail(
+	id INT NOT NULL,
+	uuid VARCHAR(100),
+	FOREIGN KEY (id) REFERENCES users (id)
+);
+
 CREATE TABLE IF NOT EXISTS company(
     company INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50),

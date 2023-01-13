@@ -40,10 +40,19 @@ const deleteUser = async (userId) => {
   }
 };
 
+const setNewPassword = async (mail) => {
+  try {
+    return await userRepository.findUserByEmail(mail);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   findUsers,
   findOneUser,
   createNewUser,
   updateUser,
   deleteUser,
+  setNewPassword,
 };

@@ -1,5 +1,7 @@
-const userService = require('../services/user-service');
 const joi = require('joi').extend(require('@joi/date'));
+
+const userService = require('../services/user-service');
+const mailService = require('../services/sendMail-service');
 
 const user = joi.object({
   mail: joi.string().email().max(100).required(),
@@ -120,10 +122,54 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const setNewPassword = async (req, res) => {
+  const {
+    params: { mail },
+  } = req;
+  if (!mail) {
+    res.state(400).send({
+      status: 'FAILED',
+      data: { error: "Parameter ':mail' can not be empty" },
+    });
+  }
+  try {
+    await userService.setNewPassword(mail);
+    res.status(202).send({ status: 'OK', message: 'Mail found' });
+  } catch (error) {
+    res.status(404).send({
+      status: 'FAILED',
+      data: { error: error?.message || error },
+    });
+  }
+};
+
+const sendMail = async (req, res) => {
+  const {
+    params: { mail },
+  } = req;
+  if (!mail) {
+    res.state(400).send({
+      status: 'FAILED',
+      data: { error: "Parameter ':mail' can not be empty" },
+    });
+  }
+  try {
+    await mailService.sendMail(mail);
+    res.status(202).send({ status: 'OK', message: 'Mail send' });
+  } catch (error) {
+    res.status(404).send({
+      status: 'FAILED',
+      data: { error: error?.message || error },
+    });
+  }
+};
+
 module.exports = {
   findUsers,
   findOneUser,
   createUser,
   updateUser,
   deleteUser,
+  setNewPassword,
+  sendMail,
 };
