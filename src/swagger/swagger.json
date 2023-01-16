@@ -6,7 +6,7 @@
     "version": "1.0"
   },
   "produces": ["application/json"],
-  "host": "https://community-api-kqnn.onrender.com",
+  "host": "community-api-kqnn.onrender.com",
   "basePath": "/",
   "paths": {
     "/users": {
