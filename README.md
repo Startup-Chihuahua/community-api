@@ -3,12 +3,16 @@
 Add .env
 
 ```javascript
-PORT = 
-HOST =
-USER = 
+PORT = '3000'
+HOST = 'localhost'
+USER = 'root'
 PASSWORD =
-DATABASE = 
+DATABASE =
 DATABASE_URL =
-SECRET_KEY = 
-PASS_MAIL = 
+SECRET_KEY =
+PASS_MAIL =
+SECRET_CRYPTR =
+SG_API_KEY =
+MAIL = 'startupchihuahua0@gmail.com'
+URL = 'https://startupchihuahua.onrender.com'
 ```
