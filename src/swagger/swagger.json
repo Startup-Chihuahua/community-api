@@ -52,6 +52,33 @@
         "responses": {}
       }
     },
+    "/users/new-password": {
+      "post": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "New Passsword",
+        "tags": ["User Data"],
+        "summary": "Create new Password",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create new User",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/Update Password"
+            }
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/users/{userId}": {
       "get": {
         "x-swagger-router-controller": "middleware-name1",
@@ -442,6 +469,23 @@
         ],
         "responses": {}
       }
+    },
+    "/mail/sendMail/{mail}": {
+      "get": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "sendMail",
+        "tags": ["Send Mail"],
+        "summary": "Send mail for new password",
+        "parameters": [
+          {
+            "name": "mail",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
     }
   },
   "definitions": {
@@ -562,6 +606,19 @@
       },
       "xml": {
         "name": "Company"
+      }
+    },
+    "Update Password": {
+      "properties": {
+        "uuid": {
+          "typer": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Update Password"
       }
     }
   }
