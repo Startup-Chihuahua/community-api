@@ -6,7 +6,7 @@
     "version": "1.0"
   },
   "produces": ["application/json"],
-  "host": "community-api-kqnn.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "paths": {
     "/users": {
@@ -273,6 +273,31 @@
           }
         ],
         "responses": {}
+      },
+      "post": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "createEvent",
+        "tags": ["Event Data"],
+        "summary": "Add new event",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create new event",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/Event"
+            }
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
       }
     },
     "/events/{eventId}": {
@@ -285,8 +310,65 @@
           {
             "name": "eventId",
             "in": "path",
-            "description": "ID of user that needs to be fetched",
+            "description": "ID of event that needs to be fetched",
             "type": "integer"
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      },
+      "put": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "updateEvent",
+        "tags": ["Event Data"],
+        "summary": "Update a event",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "Event id to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update event object",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/Event"
+            }
+          },
+          {
+            "name": "auth-token",
+            "in": "header",
+            "description": "Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "x-swagger-router-controller": "middleware-name1",
+        "operationId": "deleteEvent",
+        "tags": ["Event Data"],
+        "summary": "Delete a event",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "Event id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
           },
           {
             "name": "auth-token",
@@ -515,22 +597,43 @@
     },
     "Event": {
       "properties": {
-        "idCompany": {
-          "type": "int"
+        "event_name": {
+          "type": "string"
         },
-        "capacity": {
-          "type": "int"
+        "description": {
+          "type": "string"
         },
-        "cost": {
-          "type": "decimal"
+        "profile_type": {
+          "type": "string"
+        },
+        "start_date": {
+          "type": "string"
+        },
+        "end_date": {
+          "type": "string"
+        },
+        "url_flyer": {
+          "type": "string"
         },
         "modality": {
           "type": "string"
         },
-        "dateEvent": {
-          "type": "date"
-        },
         "location": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "community_name": {
           "type": "string"
         }
       },
