@@ -10,11 +10,12 @@ const tokenRepository = require('../repositories/token-repository');
 // const API_KEY = process.env.SG_API_KEY;
 const fMail = process.env.MAIL;
 const url = process.env.URL;
-const text = '/recuperar-contrseña?token=';
+const text = '/recuperar-contraseña?token=';
 
 const sendTokentoMail = async (mail) => {
   const uuid = uuidv4();
   const link = `${url}${text}${uuid}`;
+  console.log(link);
   try {
     const user = await userReporsitory.findUserByEmail(mail);
     await tokenRepository.createToken(user.id, uuid);
