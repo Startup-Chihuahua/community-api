@@ -1,5 +1,5 @@
 const userRepository = require('../repositories/user-repository');
-const mailRepository = require('../repositories/mail-repository');
+const mailRepository = require('../repositories/token-repository');
 
 const findUsers = async () => {
   try {
@@ -43,8 +43,8 @@ const deleteUser = async (userId) => {
 
 const setNewPassword = async ({ uuid, password }) => {
   try {
-    const { id } = await mailRepository.findUuid(uuid);
-    return await userRepository.setPassword(id, password);
+    const { id } = await mailRepository.findToken(uuid);
+    return userRepository.setPassword(id, password);
   } catch (error) {
     throw error;
   }

@@ -14,5 +14,5 @@ PASS_MAIL =
 SECRET_CRYPTR =
 SG_API_KEY =
 MAIL = 'startupchihuahua0@gmail.com'
-URL = 'https://startupchihuahua.onrender.com'
+URL = 'http://localhost:3000'
 ```

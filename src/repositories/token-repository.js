@@ -1,9 +1,9 @@
 const connect = require('../connection/dbconnection');
 
-const createNewUuid = async (id, uuid) => {
+const createToken = async (id, uuid) => {
   try {
     const connection = await connect();
-    return connection.query('INSERT INTO mail (id, uuid) VALUES (?,?)', [
+    return connection.query('INSERT INTO token (id, uuid) VALUES (?,?)', [
       id,
       uuid,
     ]);
@@ -12,12 +12,13 @@ const createNewUuid = async (id, uuid) => {
   }
 };
 
-const findUuid = async (uuid) => {
+const findToken = async (uuid) => {
   try {
     const connection = await connect();
-    const [data] = await connection.query('SELECT * FROM mail WHERE uuid = ?', [
-      uuid,
-    ]);
+    const [data] = await connection.query(
+      'SELECT * FROM token WHERE uuid = ?',
+      [uuid]
+    );
     if (data.length === 0) {
       throw {
         status: 404,
@@ -31,6 +32,6 @@ const findUuid = async (uuid) => {
 };
 
 module.exports = {
-  createNewUuid,
-  findUuid,
+  createToken,
+  findToken,
 };

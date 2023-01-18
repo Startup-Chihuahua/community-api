@@ -19,7 +19,7 @@ create table users(
 	aliado VARCHAR(20)
 );
 
-create table mail(
+create table token(
 	id INT NOT NULL,
 	uuid VARCHAR(100),
 	FOREIGN KEY (id) REFERENCES users (id)

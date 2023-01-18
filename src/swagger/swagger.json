@@ -470,7 +470,7 @@
         "responses": {}
       }
     },
-    "/mail/sendMail/{mail}": {
+    "/user/recover-password/{mail}": {
       "get": {
         "x-swagger-router-controller": "middleware-name1",
         "operationId": "sendMail",

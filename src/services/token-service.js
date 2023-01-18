@@ -5,19 +5,19 @@ const nodemailer = require('nodemailer');
 const { v4: uuidv4 } = require('uuid');
 
 const userReporsitory = require('../repositories/user-repository');
-const mailRepository = require('../repositories/mail-repository');
+const tokenRepository = require('../repositories/token-repository');
 
 // const API_KEY = process.env.SG_API_KEY;
 const fMail = process.env.MAIL;
 const url = process.env.URL;
 const text = '/recuperar-contrseña?token=';
 
-const sendMail = async (mail) => {
+const sendTokentoMail = async (mail) => {
   const uuid = uuidv4();
   const link = `${url}${text}${uuid}`;
   try {
     const user = await userReporsitory.findUserByEmail(mail);
-    await mailRepository.createNewUuid(user.id, uuid);
+    await tokenRepository.createToken(user.id, uuid);
 
     // sgMail.setApiKey(API_KEY);
     // const msg = {
@@ -64,5 +64,5 @@ const sendMail = async (mail) => {
 };
 
 module.exports = {
-  sendMail,
+  sendTokentoMail,
 };

@@ -1,4 +1,4 @@
-const mailService = require('../services/mail-service');
+const tokenService = require('../services/token-service');
 
 const sendMail = async (req, res) => {
   const {
@@ -11,7 +11,7 @@ const sendMail = async (req, res) => {
     });
   }
   try {
-    await mailService.sendMail(mail);
+    await tokenService.sendTokentoMail(mail);
     res.status(202).send({ status: 'OK', message: 'Mail send' });
   } catch (error) {
     res.status(404).send({

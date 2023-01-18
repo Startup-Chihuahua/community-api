@@ -20,8 +20,8 @@ const user = joi.object({
 });
 
 const newPass = joi.object({
-  uuid: joi.string().max(40).required(),
-  password: joi.string().required(),
+  uuid: joi.string().guid({ version: 'uuidv4' }).required(),
+  password: joi.string().min(8).max(100).required(),
 });
 
 const findUsers = async (req, res) => {
@@ -137,7 +137,7 @@ const setNewPassword = async (req, res) => {
     try {
       await userService.setNewPassword(result.value);
       res
-        .status(202)
+        .status(200)
         .send({ status: 'OK', message: 'Change user password success' });
     } catch (error) {
       res.status(404).send({
