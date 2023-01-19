@@ -1,5 +1,5 @@
 const eventService = require('../services/event-service');
-const joi = require('joi').extend(require('@joi/date'));
+const joi = require('joi');
 
 const event = joi.object({
   event_name: joi.string().max(100).required(),
