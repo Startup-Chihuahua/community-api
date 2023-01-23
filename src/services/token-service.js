@@ -15,7 +15,6 @@ const text = '/recuperar-contraseña?token=';
 const sendTokentoMail = async (mail) => {
   const uuid = uuidv4();
   const link = `${url}${text}${uuid}`;
-  console.log(link);
   try {
     const user = await userReporsitory.findUserByEmail(mail);
     await tokenRepository.createToken(user.id, uuid);

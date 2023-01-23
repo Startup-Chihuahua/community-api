@@ -3,10 +3,10 @@ const connect = require('../connection/dbconnection');
 const createToken = async (id, uuid) => {
   try {
     const connection = await connect();
-    return connection.query('INSERT INTO token (id, uuid) VALUES (?,?)', [
-      id,
-      uuid,
-    ]);
+    return connection.query(
+      'INSERT INTO token (fk_user_id, uuid) VALUES (?,?)',
+      [id, uuid]
+    );
   } catch (error) {
     throw { status: 500, message: error };
   }
