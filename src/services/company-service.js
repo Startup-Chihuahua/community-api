@@ -1,74 +1,23 @@
-const companyData = require('../database/company-data');
+const companyRepository = require('../repositories/company-repository');
 
-const getCompanys = async () => {
-    try {
-        const [allCompanys] = await companyData.getCompanys();
-        return allCompanys;
-    } catch (error) {
-        throw error;
-    }
-};
+const findCompanies = async () => companyRepository.findCompanies();
 
-const getOneCompany = async (companyId) => {
-    try {
-        const [company] = await companyData.getOneCompany(companyId);
-        if(company.length === 0){
-            throw {
-                status: 400,
-                message: `ID not found: ${companyId}`
-            };
-        }
-        return company;
-    } catch (error) {
-        throw error;
-    }
-};
+const findOneCompany = async (companyId) =>
+  companyRepository.findOneCompany(companyId);
 
-const createNewCompany = async (newCompany) => {
-    try {
-        const createdCompany = await companyData.createNewCompany(newCompany);
-        return createdCompany;
-    } catch (error) {
-        throw error;
-    }
-};
+const createNewCompany = async (newCompany) =>
+  companyRepository.createNewCompany(newCompany);
 
-const updateCompany = async (objectCompany, companyId) => {
-    try {
-        const [company] = await companyData.getOneCompany(companyId);
-        if(company.length === 0){
-            throw {
-                status: 400,
-                message: `ID not found: ${companyId}`
-            };
-        }else{
-            return await companyData.updateCompany(objectCompany, companyId);
-        }
-    } catch (error) {
-        throw error;
-    }
-};
+const updateCompany = async (objectCompany, companyId) =>
+  companyRepository.updateCompany(objectCompany, companyId);
 
-const deleteCompany = async (companyId) => {
-    try {
-        const data = await companyData.deleteCompany(companyId);
-        if(data[0].affectedRows === 0){
-            throw {
-                status: 400,
-                message: `ID not found: ${companyId}`
-            };
-        }
-        return data;
-    } catch (error) {
-        throw error;
-    }
-};
+const deleteCompany = async (companyId) =>
+  companyRepository.deleteCompany(companyId);
 
 module.exports = {
-    getCompanys,
-    getOneCompany,
-    createNewCompany,
-    updateCompany,
-    deleteCompany
+  findCompanies,
+  findOneCompany,
+  createNewCompany,
+  updateCompany,
+  deleteCompany,
 };
-
