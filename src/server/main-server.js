@@ -25,9 +25,9 @@ function assingRoutes(app) {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   app.use('', login);
   app.use('', token);
-  app.use('', user);
-  app.use('', verifyToken, company);
   app.use('', verifyToken, event);
+  app.use('', verifyToken, user);
+  app.use('', verifyToken, company);
   app.use('', verifyToken, community);
 }
 
