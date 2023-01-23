@@ -19,6 +19,12 @@ create table users(
 	aliado VARCHAR(20)
 );
 
+create table token(
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	fk_user_id INT NOT NULL,
+	uuid VARCHAR(100)
+);
+
 CREATE TABLE IF NOT EXISTS company(
     company INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50),

@@ -1,4 +1,5 @@
 const userRepository = require('../repositories/user-repository');
+const mailRepository = require('../repositories/token-repository');
 
 const findUsers = async () => userRepository.findUsers();
 
@@ -11,10 +12,20 @@ const updateUser = async (objectUser, userId) =>
 
 const deleteUser = async (userId) => userRepository.deleteUser(userId);
 
+const setNewPassword = async ({ uuid, password }) => {
+  try {
+    const { id } = await mailRepository.findToken(uuid);
+    return userRepository.setPassword(id, password);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   findUsers,
   findOneUser,
   createNewUser,
   updateUser,
   deleteUser,
+  setNewPassword,
 };
