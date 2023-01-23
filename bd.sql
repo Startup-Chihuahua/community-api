@@ -20,9 +20,9 @@ create table users(
 );
 
 create table token(
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	fk_user_id INT NOT NULL,
-	uuid VARCHAR(100),
-	FOREIGN KEY (id) REFERENCES users (id)
+	uuid VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS company(
