@@ -10,7 +10,7 @@ const tokenRepository = require('../repositories/token-repository');
 // const API_KEY = process.env.SG_API_KEY;
 const fMail = process.env.MAIL;
 const url = process.env.URL;
-const text = '/recuperar-contraseña?token=';
+const text = '/actualizar-contraseña?token=';
 
 const sendTokentoMail = async (mail) => {
   const uuid = uuidv4();
