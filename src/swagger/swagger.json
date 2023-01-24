@@ -552,18 +552,21 @@
         "responses": {}
       }
     },
-    "/user/recover-password/{mail}": {
-      "get": {
+    "/user/recover-password": {
+      "post": {
         "x-swagger-router-controller": "middleware-name1",
         "operationId": "sendMail",
         "tags": ["Send Mail"],
         "summary": "Send mail for new password",
         "parameters": [
           {
-            "name": "mail",
-            "in": "path",
+            "in": "body",
+            "name": "body",
+            "description": "Mail",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#definitions/Mail"
+            }
           }
         ],
         "responses": {}
@@ -722,6 +725,16 @@
       },
       "xml": {
         "name": "Update Password"
+      }
+    },
+    "Mail": {
+      "properties": {
+        "mail": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Mail"
       }
     }
   }
