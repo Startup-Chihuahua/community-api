@@ -15,7 +15,8 @@ const createLog = async ({ mail, password }) => {
         expiresIn: '2h',
       });
       const dataUser = {
-        user: user.id,
+        id: user.id,
+        name: user.name,
         accessToken,
       };
       return dataUser;
