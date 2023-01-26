@@ -5,9 +5,8 @@ const token = joi.object({
   mail: joi.string().email().max(100).required(),
 });
 
-const sendMail = async (req, res) => {
+const sendTokentoMail = async (req, res) => {
   const { error } = token.validate(req.body);
-  console.log(req.body.mail);
   if (error) {
     res.status(400).send({
       status: 'FAILED',
@@ -27,5 +26,5 @@ const sendMail = async (req, res) => {
 };
 
 module.exports = {
-  sendMail,
+  sendTokentoMail,
 };
