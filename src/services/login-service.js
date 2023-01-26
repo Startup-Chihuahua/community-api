@@ -11,11 +11,11 @@ const createLog = async ({ mail, password }) => {
     const user = await userRepository.findUserByEmail(mail);
     const pass = cryptr.decrypt(user.password);
     if (pass === password) {
-      const accessToken = jwt.sign({ id: user.user }, SECRET_KEY, {
+      const accessToken = jwt.sign({ id: user.id }, SECRET_KEY, {
         expiresIn: '2h',
       });
       const dataUser = {
-        user: user.user,
+        user: user.id,
         accessToken,
       };
       return dataUser;
