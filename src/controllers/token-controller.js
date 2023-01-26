@@ -6,21 +6,21 @@ const token = joi.object({
 });
 
 const sendMail = async (req, res) => {
-  const result = token.validate(req.body);
+  const { error } = token.validate(req.body);
   console.log(req.body.mail);
-  if (result.error) {
+  if (error) {
     res.status(400).send({
       status: 'FAILED',
-      data: { error: result.error.details },
+      data: { error: error.details },
     });
   } else {
     try {
       await tokenService.sendTokentoMail(req.body.mail);
       res.status(202).send({ status: 'OK', message: 'Mail send' });
-    } catch (error) {
+    } catch (err) {
       res.status(404).send({
         status: 'FAILED',
-        data: { error: error?.message || error },
+        data: { error: err?.message || err },
       });
     }
   }
