@@ -3,6 +3,6 @@ const tokenController = require('../controllers/token-controller');
 
 const router = express.Router();
 
-router.get('/user/recover-password/:mail', tokenController.sendMail);
+router.post('/user/recover-password', tokenController.sendTokentoMail);
 
 module.exports = router;

@@ -1,26 +1,30 @@
+const joi = require('joi');
 const tokenService = require('../services/token-service');
 
-const sendMail = async (req, res) => {
-  const {
-    params: { mail },
-  } = req;
-  if (!mail) {
-    res.state(400).send({
+const token = joi.object({
+  mail: joi.string().email().max(100).required(),
+});
+
+const sendTokentoMail = async (req, res) => {
+  const { error } = token.validate(req.body);
+  if (error) {
+    res.status(400).send({
       status: 'FAILED',
-      data: { error: "Parameter ':mail' can not be empty" },
+      data: { error: error.details },
     });
-  }
-  try {
-    await tokenService.sendTokentoMail(mail);
-    res.status(202).send({ status: 'OK', message: 'Mail send' });
-  } catch (error) {
-    res.status(404).send({
-      status: 'FAILED',
-      data: { error: error?.message || error },
-    });
+  } else {
+    try {
+      await tokenService.sendTokentoMail(req.body.mail);
+      res.status(202).send({ status: 'OK', message: 'Mail send' });
+    } catch (err) {
+      res.status(404).send({
+        status: 'FAILED',
+        data: { error: err?.message || err },
+      });
+    }
   }
 };
 
 module.exports = {
-  sendMail,
+  sendTokentoMail,
 };
