@@ -4,7 +4,9 @@ const jwt = require('jsonwebtoken');
 const verifyToken = (req, res, next) => {
   if (
     req.method === 'POST' &&
-    (req.url === '/users' || req.url === '/users/new-password')
+    (req.url === '/users' ||
+      req.url === '/users/new-password' ||
+      req.url === '/events')
   ) {
     next();
   } else {

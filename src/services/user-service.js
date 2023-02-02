@@ -15,7 +15,7 @@ const deleteUser = async (userId) => userRepository.deleteUser(userId);
 const setNewPassword = async ({ uuid, password }) => {
   try {
     const { id } = await mailRepository.findToken(uuid);
-    return userRepository.setPassword(id, password);
+    return await userRepository.setPassword(id, password);
   } catch (error) {
     throw error;
   }

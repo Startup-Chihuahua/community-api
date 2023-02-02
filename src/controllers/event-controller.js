@@ -7,11 +7,11 @@ const event = joi.object({
   profile_type: joi.string().max(50).required(),
   start_date: joi
     .string()
-    .regex(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/)
+    .regex(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/)
     .required(),
   end_date: joi
     .string()
-    .regex(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/)
+    .regex(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/)
     .required(),
   url_flyer: joi.string().max(1000).required(),
   modality: joi.string().max(20).required(),
