@@ -290,15 +290,6 @@
         "operationId": "getEvents",
         "tags": ["Event Data"],
         "summary": "Get all Events",
-        "parameters": [
-          {
-            "name": "auth-token",
-            "in": "header",
-            "description": "Token",
-            "required": true,
-            "type": "string"
-          }
-        ],
         "responses": {}
       },
       "post": {
