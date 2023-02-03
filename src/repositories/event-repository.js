@@ -32,15 +32,17 @@ const createNewEvent = async (newEvent) => {
   try {
     const connection = await connect();
     return connection.query(
-      'INSERT INTO events (event_name, description, profile_type, start_date, end_date, url_flyer, modality, location, name, lastname, phone, mail, community_name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
+      'INSERT INTO events (event_name, description, profile_type, url_form, start_date, end_date, url_flyer, modality, cost, location, name, lastname, phone, mail, community_name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
       [
         newEvent.event_name,
         newEvent.description,
         newEvent.profile_type,
+        newEvent.url_form,
         newEvent.start_date,
         newEvent.end_date,
         newEvent.url_flyer,
         newEvent.modality,
+        newEvent.cost,
         newEvent.location,
         newEvent.name,
         newEvent.lastname,
@@ -59,15 +61,17 @@ const updateEvent = async (objectEvent, eventId) => {
     await findOneEvent(eventId);
     const connection = await connect();
     const [result] = await connection.query(
-      'UPDATE events SET event_name = ?, description = ?, profile_type = ?, start_date = ?, end_date = ?, url_flyer = ?, modality = ?, location = ?, name = ?, lastname = ?, phone = ?, mail = ?, community_name = ?',
+      'UPDATE events SET event_name = ?, description = ?, profile_type = ?, url_form = ?, start_date = ?, end_date = ?, url_flyer = ?, modality = ?, cost = ?, location = ?, name = ?, lastname = ?, phone = ?, mail = ?, community_name = ?',
       [
         objectEvent.event_name,
         objectEvent.description,
         objectEvent.profile_type,
+        objectEvent.url_form,
         objectEvent.start_date,
         objectEvent.end_date,
         objectEvent.url_flyer,
         objectEvent.modality,
+        objectEvent.cost,
         objectEvent.location,
         objectEvent.name,
         objectEvent.lastname,

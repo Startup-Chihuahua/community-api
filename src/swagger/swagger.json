@@ -6,7 +6,7 @@
     "version": "1.0"
   },
   "produces": ["application/json"],
-  "host": "community-api-kqnn.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "paths": {
     "/users": {
@@ -653,6 +653,9 @@
         "profile_type": {
           "type": "string"
         },
+        "url_form": {
+          "type": "string"
+        },
         "start_date": {
           "type": "string"
         },
@@ -664,6 +667,9 @@
         },
         "modality": {
           "type": "string"
+        },
+        "cost": {
+          "type": "float"
         },
         "location": {
           "type": "string"
