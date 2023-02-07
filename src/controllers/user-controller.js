@@ -3,8 +3,8 @@ const joi = require('joi').extend(require('@joi/date'));
 const userService = require('../services/user-service');
 
 const user = joi.object({
-  mail: joi.string().email().max(100).required(),
-  password: joi.string().min(8).max(100).required(),
+  mail: joi.string().email().max(100),
+  password: joi.string().min(8).max(100),
   name: joi.string().min(3).max(50).required(),
   lastname: joi.string().min(3).max(100).required(),
   curp: joi.string().uppercase().max(20).required(),
