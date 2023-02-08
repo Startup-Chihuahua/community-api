@@ -24,6 +24,10 @@ const newPass = joi.object({
   password: joi.string().min(8).max(100).required(),
 });
 
+const mailScheme = joi.object({
+  mail: joi.string().email().max(100),
+});
+
 const findUsers = async (req, res) => {
   try {
     const allUsers = await userService.findUsers();
@@ -148,6 +152,29 @@ const setNewPassword = async (req, res) => {
   }
 };
 
+const findUserByEmail = async (req, res) => {
+  const result = mailScheme.validate(req.body);
+  if (result.error) {
+    res.status(400).send({
+      status: 'FAILED',
+      data: { error: result.error.details },
+    });
+  } else {
+    try {
+      const data = await userService.findUserByEmail(result.value);
+      res.status(200).send({
+        status: 'OK',
+        data,
+      });
+    } catch (error) {
+      res.status(404).send({
+        status: 'FAILED',
+        data: { error: error?.message || error },
+      });
+    }
+  }
+};
+
 module.exports = {
   findUsers,
   findOneUser,
@@ -155,4 +182,5 @@ module.exports = {
   updateUser,
   deleteUser,
   setNewPassword,
+  findUserByEmail,
 };

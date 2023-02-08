@@ -21,6 +21,9 @@ const setNewPassword = async ({ uuid, password }) => {
   }
 };
 
+const findUserByEmail = async ({ mail }) =>
+  userRepository.findUserByEmail(mail);
+
 module.exports = {
   findUsers,
   findOneUser,
@@ -28,4 +31,5 @@ module.exports = {
   updateUser,
   deleteUser,
   setNewPassword,
+  findUserByEmail,
 };
