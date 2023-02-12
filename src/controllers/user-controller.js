@@ -17,6 +17,7 @@ const user = joi.object({
   tags: joi.string().max(15).required(),
   emprendedor: joi.string().max(20).required(),
   aliado: joi.string().max(20).required(),
+  type: joi.string().max(20),
 });
 
 const newPass = joi.object({

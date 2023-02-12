@@ -63,7 +63,7 @@ const updateUser = async (objectUser, userId) => {
     await findOneUser(userId);
     const connection = await connect();
     const [result] = await connection.query(
-      'UPDATE users SET name = ?, lastname = ?, curp = ?, birth_date = ?, gender = ?, state = ?, town = ?, neighborhood = ?, program = ?, tags = ?, emprendedor = ?, aliado = ?  WHERE id = ?',
+      'UPDATE users SET name = ?, lastname = ?, curp = ?, birth_date = ?, gender = ?, state = ?, town = ?, neighborhood = ?, program = ?, tags = ?, emprendedor = ?, aliado = ?, type = ?  WHERE id = ?',
       [
         objectUser.name,
         objectUser.lastname,
@@ -77,6 +77,7 @@ const updateUser = async (objectUser, userId) => {
         objectUser.tags,
         objectUser.emprendedor,
         objectUser.aliado,
+        objectUser.type,
         userId,
       ]
     );

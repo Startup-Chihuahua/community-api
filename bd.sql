@@ -16,7 +16,8 @@ create table users(
 	program VARCHAR(100),
 	tags VARCHAR(15),
 	emprendedor VARCHAR(20),
-	aliado VARCHAR(20)
+	aliado VARCHAR(20),
+	type VARCHAR(20)
 );
 
 create table token(
