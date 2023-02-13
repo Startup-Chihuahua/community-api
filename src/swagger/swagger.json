@@ -608,6 +608,9 @@
         },
         "aliado": {
           "type": "string"
+        },
+        "type": {
+          "type": "string"
         }
       }
     },
