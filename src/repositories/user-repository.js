@@ -126,10 +126,10 @@ const findUserByEmail = async (mail) => {
 const setPassword = async (userid, password) => {
   try {
     const connection = await connect();
-    return connection.query('UPDATE users SET password = ? WHERE id = ?', [
-      cryptr.encrypt(password),
-      userid,
-    ]);
+    return await connection.query(
+      'UPDATE users SET password = ? WHERE id = ?',
+      [cryptr.encrypt(password), userid]
+    );
   } catch (error) {
     throw { status: 500, message: error };
   }
