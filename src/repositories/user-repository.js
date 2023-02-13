@@ -35,7 +35,7 @@ const createNewUser = async (newUser) => {
   try {
     const connection = await connect();
     return connection.query(
-      'INSERT INTO users (mail, password, name, lastname, curp, birth_date, gender, state, town, neighborhood, program, tags, emprendedor, aliado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+      'INSERT INTO users (mail, password, name, lastname, curp, birth_date, gender, state, town, neighborhood, program, tags, emprendedor, aliado, type) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
       [
         newUser.mail,
         cryptr.encrypt(newUser.password),
@@ -51,6 +51,7 @@ const createNewUser = async (newUser) => {
         newUser.tags,
         newUser.emprendedor,
         newUser.aliado,
+        newUser.type,
       ]
     );
   } catch (error) {
