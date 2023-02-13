@@ -5,16 +5,18 @@ const event = joi.object({
   event_name: joi.string().max(100).required(),
   description: joi.string().max(200).required(),
   profile_type: joi.string().max(50).required(),
+  url_form: joi.string().max(1000).required(),
   start_date: joi
     .string()
-    .regex(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/)
+    .regex(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/)
     .required(),
   end_date: joi
     .string()
-    .regex(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/)
+    .regex(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/)
     .required(),
   url_flyer: joi.string().max(1000).required(),
   modality: joi.string().max(20).required(),
+  cost: joi.number().required(),
   location: joi.string().max(200).required(),
   name: joi.string().max(50).required(),
   lastname: joi.string().max(100).required(),

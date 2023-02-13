@@ -3,8 +3,8 @@ const joi = require('joi').extend(require('@joi/date'));
 const userService = require('../services/user-service');
 
 const user = joi.object({
-  mail: joi.string().email().max(100).required(),
-  password: joi.string().min(8).max(100).required(),
+  mail: joi.string().email().max(100),
+  password: joi.string().min(8).max(100),
   name: joi.string().min(3).max(50).required(),
   lastname: joi.string().min(3).max(100).required(),
   curp: joi.string().uppercase().max(20).required(),
@@ -17,11 +17,16 @@ const user = joi.object({
   tags: joi.string().max(15).required(),
   emprendedor: joi.string().max(20).required(),
   aliado: joi.string().max(20).required(),
+  type: joi.string().max(20),
 });
 
 const newPass = joi.object({
   uuid: joi.string().guid({ version: 'uuidv4' }).required(),
   password: joi.string().min(8).max(100).required(),
+});
+
+const mailScheme = joi.object({
+  mail: joi.string().email().max(100),
 });
 
 const findUsers = async (req, res) => {
@@ -148,6 +153,29 @@ const setNewPassword = async (req, res) => {
   }
 };
 
+const findUserByEmail = async (req, res) => {
+  const result = mailScheme.validate(req.body);
+  if (result.error) {
+    res.status(400).send({
+      status: 'FAILED',
+      data: { error: result.error.details },
+    });
+  } else {
+    try {
+      const data = await userService.findUserByEmail(result.value);
+      res.status(200).send({
+        status: 'OK',
+        data,
+      });
+    } catch (error) {
+      res.status(404).send({
+        status: 'FAILED',
+        data: { error: error?.message || error },
+      });
+    }
+  }
+};
+
 module.exports = {
   findUsers,
   findOneUser,
@@ -155,4 +183,5 @@ module.exports = {
   updateUser,
   deleteUser,
   setNewPassword,
+  findUserByEmail,
 };

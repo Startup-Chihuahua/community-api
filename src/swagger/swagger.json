@@ -290,15 +290,6 @@
         "operationId": "getEvents",
         "tags": ["Event Data"],
         "summary": "Get all Events",
-        "parameters": [
-          {
-            "name": "auth-token",
-            "in": "header",
-            "description": "Token",
-            "required": true,
-            "type": "string"
-          }
-        ],
         "responses": {}
       },
       "post": {
@@ -653,6 +644,9 @@
         "profile_type": {
           "type": "string"
         },
+        "url_form": {
+          "type": "string"
+        },
         "start_date": {
           "type": "string"
         },
@@ -664,6 +658,9 @@
         },
         "modality": {
           "type": "string"
+        },
+        "cost": {
+          "type": "float"
         },
         "location": {
           "type": "string"

@@ -15,11 +15,14 @@ const deleteUser = async (userId) => userRepository.deleteUser(userId);
 const setNewPassword = async ({ uuid, password }) => {
   try {
     const { id } = await mailRepository.findToken(uuid);
-    return userRepository.setPassword(id, password);
+    return await userRepository.setPassword(id, password);
   } catch (error) {
     throw error;
   }
 };
+
+const findUserByEmail = async ({ mail }) =>
+  userRepository.findUserByEmail(mail);
 
 module.exports = {
   findUsers,
@@ -28,4 +31,5 @@ module.exports = {
   updateUser,
   deleteUser,
   setNewPassword,
+  findUserByEmail,
 };
